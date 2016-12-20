@@ -39,7 +39,7 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   if (all(mock_qual_names == "")) {
     warning("Not mocking anything. Please use named parameters to specify the functions you want to mock.",
             call. = FALSE)
-    code_pos <- TRUE
+    code_pos <- rep(TRUE, length(mock_qual_names))
   } else {
     code_pos <- (mock_qual_names == "")
   }
@@ -50,7 +50,7 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   # Evaluate the code
   ret <- invisible(NULL)
   for (expression in code) {
-    expression$env <- mock_env
+    parent.env(expression$env) <- mock_env
     ret <- lazyeval::lazy_eval(expression)
   }
   ret
