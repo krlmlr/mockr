@@ -21,24 +21,20 @@
 #' @references Suraj Gupta (2012): \href{http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff}{How R Searches And Finds Stuff}
 #' @export
 #' @examples
+#' some_func <- function() stop("oops")
+#' some_other_func <- function() some_func()
 #' with_mock(
-#'   all.equal = function(x, y, ...) TRUE,
-#'   expect_equal(2 * 3, 4),
-#'   .env = "base"
+#'   some_func = function() 42,
+#'   some_other_func()
 #' )
-#' with_mock(
-#'   `base::identical` = function(x, y, ...) TRUE,
-#'   `base::all.equal` = function(x, y, ...) TRUE,
-#'   expect_equal(x <- 3 * 3, 6),
-#'   expect_identical(x + 4, 9)
-#' )
-#' \dontrun{
-#' expect_equal(3, 5)
-#' expect_identical(3, 5)
-#' }
-with_mock <- function(..., .env = topenv()) {
-  new_values <- eval(substitute(alist(...)))
-  mock_qual_names <- names(new_values)
+with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
+  .dots <- lazyeval::lazy_dots(...)
+  with_mock_(.dots = .dots, .parent = .parent, .env = .env)
+}
+
+with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topenv(.parent)) {
+  dots <- lazyeval::all_dots(.dots, ...)
+  mock_qual_names <- names(dots)
 
   if (all(mock_qual_names == "")) {
     warning("Not mocking anything. Please use named parameters to specify the functions you want to mock.",
@@ -47,66 +43,69 @@ with_mock <- function(..., .env = topenv()) {
   } else {
     code_pos <- (mock_qual_names == "")
   }
-  code <- new_values[code_pos]
 
-  mocks <- extract_mocks(new_values = new_values[!code_pos], .env = .env, eval_env = parent.frame())
-
-  on.exit(lapply(mocks, reset_mock), add = TRUE)
-  lapply(mocks, set_mock)
+  mock_env <- create_mock_env_(.dots = dots[!code_pos], .env = .env)
+  code <- dots[code_pos]
 
   # Evaluate the code
   ret <- invisible(NULL)
   for (expression in code) {
-    ret <- eval(expression, parent.frame())
+    expression$env <- mock_env
+    ret <- lazyeval::lazy_eval(expression)
   }
   ret
 }
 
-pkg_rx <- ".*[^:]"
-colons_rx <- "::(?:[:]?)"
-name_rx <- ".*"
-pkg_and_name_rx <- sprintf("^(?:(%s)%s)?(%s)$", pkg_rx, colons_rx, name_rx)
+create_mock_env_ <- function(..., .dots = NULL, .env = .env) {
+  dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
-extract_mocks <- function(new_values, .env, eval_env = parent.frame()) {
-  if (is.environment(.env))
-    .env <- environmentName(.env)
-  mock_qual_names <- names(new_values)
+  mocks <- extract_mocks(dots = dots, env = .env)
 
-  lapply(
-    stats::setNames(nm = mock_qual_names),
-    function(qual_name) {
-      pkg_name <- gsub(pkg_and_name_rx, "\\1", qual_name)
+  mock_env <- new.env(parent = .env)
 
-      name <- gsub(pkg_and_name_rx, "\\2", qual_name)
+  mocked <- as.list(.env)
+  mocked <- mocked[vapply(mocked, is.function, logical(1L))]
+  mocked[names(mocks)] <- lapply(mocks, "[[", "new_value")
+  mocked <- lapply(mocked, `environment<-`, mock_env)
 
-      if (pkg_name == "")
-        pkg_name <- .env
-
-      env <- asNamespace(pkg_name)
-
-      if (!exists(name, envir = env, mode = "function"))
-        stop("Function ", name, " not found in environment ",
-             environmentName(env), ".", call. = FALSE)
-      mock(name = name, env = env, new = eval(new_values[[qual_name]], eval_env, eval_env))
-    }
-  )
+  lapply(names(mocked), function(x) mock_env[[x]] <- mocked[[x]])
+  mock_env
 }
 
-#' @useDynLib testthat duplicate_
-mock <- function(name, env, new) {
-  target_value <- get(name, envir = env, mode = "function")
+extract_mocks <- function(dots, env) {
+  lapply(stats::setNames(nm = names(dots)),
+         function(qual_name) extract_mock(qual_name, dots[[qual_name]], env))
+}
+
+extract_mock <- function(qual_name, dot, env) {
+  pkg_rx <- ".*[^:]"
+  colons_rx <- "::(?:[:]?)"
+  name_rx <- ".*"
+  pkg_and_name_rx <- sprintf("^(?:(%s)%s)?(%s)$", pkg_rx, colons_rx, name_rx)
+
+  pkg_name <- gsub(pkg_and_name_rx, "\\1", qual_name)
+
+  name <- gsub(pkg_and_name_rx, "\\2", qual_name)
+
+  if (pkg_name != "") {
+    warning("with_mock() cannot mock functions defined in other packages.",
+            call. = FALSE)
+  }
+
+  orig <- mget(name, envir = env, ifnotfound = list(NULL))[[1]]
+  if (is.null(orig)) {
+    stop(name, " not found in environment ",
+         environmentName(env), ".", call. = FALSE)
+  }
+  if (!is.function(orig)) {
+    stop(name, " is not a function in environment ",
+         environmentName(env), ".", call. = FALSE)
+  }
+  mock(name = name, env = env, orig = orig, new = lazyeval::lazy_eval(dot))
+}
+
+mock <- function(name, env, orig, new) {
   structure(list(
     env = env, name = as.name(name),
-    orig_value = .Call(duplicate_, target_value), target_value = target_value,
-    new_value = new), class = "mock")
-}
-
-#' @useDynLib testthat reassign_function
-set_mock <- function(mock) {
-  .Call(reassign_function, mock$name, mock$env, mock$target_value, mock$new_value)
-}
-
-#' @useDynLib testthat reassign_function
-reset_mock <- function(mock) {
-  .Call(reassign_function, mock$name, mock$env, mock$target_value, mock$orig_value)
+    orig_value = orig, new_value = new), class = "mock")
 }
