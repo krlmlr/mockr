@@ -34,6 +34,9 @@ with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
 
 with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topenv(.parent)) {
   dots <- lazyeval::all_dots(.dots, ...)
+
+  check_dots_env(dots, .parent)
+
   mock_qual_names <- names(dots)
 
   if (all(mock_qual_names == "")) {
@@ -56,16 +59,25 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   ret
 }
 
+check_dots_env <- function(dots, .parent) {
+  envs <- lapply(dots, "[[", "env")
+  same <- vlapply(envs, identical, .parent)
+  if (!all(same)) {
+    stop("Can only evaluate expressions in the parent environment.",
+         call. = FALSE)
+  }
+}
+
 create_mock_env_ <- function(..., .dots = NULL, .env = .env) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
   mocks <- extract_mocks(dots = dots, env = .env)
 
-  mock_env <- new.env(parent = .env)
-
   mocked <- as.list(.env)
   mocked <- mocked[vapply(mocked, is.function, logical(1L))]
   mocked[names(mocks)] <- lapply(mocks, "[[", "new_value")
+
+  mock_env <- new.env(parent = .env)
   mocked <- lapply(mocked, `environment<-`, mock_env)
 
   lapply(names(mocked), function(x) mock_env[[x]] <- mocked[[x]])
