@@ -18,7 +18,7 @@
 #' @param .parent `[environment]`\cr the environment in which to evaluate the expressions,
 #'   defaults to [parent.frame()]. Usually doesn't need to be changed.
 #' @return The result of the last unnamed parameter, visibility is preserved
-#' @references Suraj Gupta (2012): \href{http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff}{How R Searches And Finds Stuff}
+#' @references Suraj Gupta (2012): [How R Searches And Finds Stuff](http://blog.obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
 #' @export
 #' @examples
 #' some_func <- function() stop("oops")

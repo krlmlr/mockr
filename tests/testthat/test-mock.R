@@ -99,6 +99,26 @@ test_that("changes to variables are preserved between calls and visible outside"
   expect_equal(x, 3)
 })
 
+test_that("mocks can access local variables", {
+  value <- TRUE
+
+  with_mock(
+    expect_true(mockee()),
+    mockee = function() {value}
+  )
+})
+
+test_that("mocks can update local variables", {
+  value <- TRUE
+
+  with_mock(
+    expect_false(mockee()),
+    mockee = function() { value <<- FALSE; value }
+  )
+
+  expect_false(value)
+})
+
 test_that("mocks are overridden by local functons", {
   mockee <- function() stop("Still not mocking")
 
