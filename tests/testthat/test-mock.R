@@ -49,7 +49,6 @@ test_that("nested mock", {
 })
 
 test_that("qualified mock names warn", {
-  skip("NYI")
   expect_warning(with_mock("mockr::mockee" = function() 42, mockee()),
                  "cannot mock functions defined in other packages")
 })

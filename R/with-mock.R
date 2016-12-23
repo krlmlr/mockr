@@ -75,7 +75,9 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
   mocks <- extract_mocks(dots = dots, env = .env)
+  new_func_names <- lapply(mocks, "[[", "name")
   new_funcs <- lapply(mocks, "[[", "new_value")
+  names(new_funcs) <- new_func_names
 
   old_funcs <- as.list(.env)
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
