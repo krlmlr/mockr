@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-mockr
-=====
+mockr [![Travis-CI Build Status](https://travis-ci.org/krlmlr/mockr.svg?branch=master)](https://travis-ci.org/krlmlr/mockr)
+===========================================================================================================================
 
 The goal of mockr is to provide a drop-in replacement for `testthat::with_mock()` which will be deprecated in the next version of `testthat`. The only exported function, `with_mock()`, is modeled closely after the original implementation, but now only allows mocking functions in the package under test, which is good practice anyway. In contrast to the original implementation, no fiddling with R's internals is needed.
 
