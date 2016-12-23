@@ -39,7 +39,7 @@ with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
 with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topenv(.parent)) {
   dots <- lazyeval::all_dots(.dots, ...)
 
-  check_dots_env(dots, .parent)
+  check_dots_env_(dots, .parent)
 
   mock_qual_names <- names(dots)
 

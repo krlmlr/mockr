@@ -1,5 +1,4 @@
-
-check_dots_env <- function(dots, .parent) {
+check_dots_env_ <- function(dots, .parent) {
   envs <- lapply(dots, "[[", "env")
   same <- vlapply(envs, identical, .parent)
   if (!all(same)) {
@@ -11,13 +10,13 @@ check_dots_env <- function(dots, .parent) {
 create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
-  new_funcs <- extract_new_funcs(dots, .env)
+  new_funcs <- extract_new_funcs_(dots, .env)
   mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
   populate_env(mock_env, new_funcs)
   mock_env
 }
 
-extract_new_funcs <- function(dots, .env) {
+extract_new_funcs_ <- function(dots, .env) {
   mocks <- extract_mocks(dots = dots, env = .env)
   new_func_names <- lapply(mocks, "[[", "name")
   new_funcs <- lapply(mocks, "[[", "new_value")
