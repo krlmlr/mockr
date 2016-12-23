@@ -5,28 +5,32 @@
 #' slow, have unintended side effects or access resources that may not be
 #' available when testing.
 #'
-#' This works by using some C code to temporarily modify the mocked function \emph{in place}.
-#' On exit (regular or error), all functions are restored to their previous state.
-#' This is somewhat abusive of R's internals, and is still experimental, so use with care.
+#' This works by adding a shadow environment as a parent of the environment
+#' in which the expressions are evaluated.  Everything happens at the R level,
+#' but only functions in your own package can be mocked.
+#' Otherwise, the implementation is modeled after the original version in the
+#' `testthat` pacakge, which is now deprecated
 #'
-#' Primitives (such as [base::interactive()]) cannot be mocked, but this can be
-#' worked around easily by defining a wrapper function with the same name.
-#'
-#' @param ... named parameters redefine mocked functions, unnamed parameters
-#'   will be evaluated after mocking the functions
+#' @param ... `[any]`\cr named parameters redefine mocked functions,
+#'   unnamed parameters will be evaluated after mocking the functions
 #' @param .env the environment in which to patch the functions,
-#'   defaults to the top-level environment.  A character is interpreted as
-#'   package name.
-#' @return The result of the last unnamed parameter
+#'   defaults to [topenv()]. Usually doesn't need to be changed.
+#' @param .parent the environment in which to evaluate the expressions,
+#'   defaults to [parent.frame()]. Usually doesn't need to be changed.
+#' @return The result of the last unnamed parameter, visibility is preserved
 #' @references Suraj Gupta (2012): \href{http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff}{How R Searches And Finds Stuff}
 #' @export
 #' @examples
 #' some_func <- function() stop("oops")
 #' some_other_func <- function() some_func()
-#' with_mock(
-#'   some_func = function() 42,
-#'   some_other_func()
-#' )
+#' tester_func <- function() {
+#'   with_mock(
+#'     some_func = function() 42,
+#'     some_other_func()
+#'   )
+#' }
+#' try(some_other_func())
+#' tester_func()
 with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
   .dots <- lazyeval::lazy_dots(...)
   with_mock_(.dots = .dots, .parent = .parent, .env = .env)

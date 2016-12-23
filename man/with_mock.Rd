@@ -7,15 +7,17 @@
 with_mock(..., .parent = parent.frame(), .env = topenv(.parent))
 }
 \arguments{
-\item{...}{named parameters redefine mocked functions, unnamed parameters
-will be evaluated after mocking the functions}
+\item{...}{\code{[any]}\cr named parameters redefine mocked functions,
+unnamed parameters will be evaluated after mocking the functions}
+
+\item{.parent}{the environment in which to evaluate the expressions,
+defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}
 
 \item{.env}{the environment in which to patch the functions,
-defaults to the top-level environment.  A character is interpreted as
-package name.}
+defaults to \code{\link[=topenv]{topenv()}}. Usually doesn't need to be changed.}
 }
 \value{
-The result of the last unnamed parameter
+The result of the last unnamed parameter, visibility is preserved
 }
 \description{
 Executes code after temporarily substituting implementations of package
@@ -24,20 +26,23 @@ slow, have unintended side effects or access resources that may not be
 available when testing.
 }
 \details{
-This works by using some C code to temporarily modify the mocked function \emph{in place}.
-On exit (regular or error), all functions are restored to their previous state.
-This is somewhat abusive of R's internals, and is still experimental, so use with care.
-
-Primitives (such as \code{\link[base:interactive]{base::interactive()}}) cannot be mocked, but this can be
-worked around easily by defining a wrapper function with the same name.
+This works by adding a shadow environment as a parent of the environment
+in which the expressions are evaluated.  Everything happens at the R level,
+but only functions in your own package can be mocked.
+Otherwise, the implementation is modeled after the original version in the
+\code{testthat} pacakge, which is now deprecated
 }
 \examples{
 some_func <- function() stop("oops")
 some_other_func <- function() some_func()
-with_mock(
-  some_func = function() 42,
-  some_other_func()
-)
+tester_func <- function() {
+  with_mock(
+    some_func = function() 42,
+    some_other_func()
+  )
+}
+try(some_other_func())
+tester_func()
 }
 \references{
 Suraj Gupta (2012): \href{http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff}{How R Searches And Finds Stuff}
