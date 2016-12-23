@@ -86,6 +86,12 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   new_funcs <- lapply(mocks, "[[", "new_value")
   names(new_funcs) <- new_func_names
 
+  mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
+  populate_env(mock_env, new_funcs)
+  mock_env
+}
+
+create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
   old_funcs <- as.list(.env)
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
@@ -96,7 +102,6 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
 
   populate_env(mock_env, old_funcs)
-  populate_env(mock_env, new_funcs)
   mock_env
 }
 
