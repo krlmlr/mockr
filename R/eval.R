@@ -1,4 +1,4 @@
-evaluate_in_mock_env <- function(code, mock_env, .parent) {
+evaluate_with_mock_env <- function(code, mock_env, .parent) {
   if (length(code) == 0L) {
     return(invisible(NULL))
   }

@@ -42,7 +42,7 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   check_dots_env_(dots, .parent)
 
   mock_env <- create_mock_env_(.dots = get_mock_dots(dots), .env = .env, .parent = .parent)
-  evaluate_in_mock_env(get_code_dots(dots), mock_env, .parent)
+  evaluate_with_mock_env(get_code_dots(dots), mock_env, .parent)
 }
 
 get_mock_dots <- function(dots) {
