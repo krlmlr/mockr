@@ -10,8 +10,6 @@ The goal of mockr is to provide a drop-in replacement for `testthat::with_mock()
 Example
 -------
 
-    #> Loading mockr
-
 ``` r
 some_func <- function() stop("oops")
 some_other_func <- function() some_func()

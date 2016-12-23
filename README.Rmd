@@ -30,7 +30,7 @@ and the implementation plays well with byte-compiled code.
 
 ## Example
 
-```{r load, echo=FALSE}
+```{r load, echo=FALSE, message=FALSE}
 devtools::load_all()
 ```
 
