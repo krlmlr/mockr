@@ -95,9 +95,8 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   old_funcs <- mget(names(old_funcs), .parent, inherits = TRUE)
   old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
 
-  all_funcs <- c(new_funcs, old_funcs)
-
-  populate_env(mock_env, all_funcs)
+  populate_env(mock_env, old_funcs)
+  populate_env(mock_env, new_funcs)
   mock_env
 }
 
