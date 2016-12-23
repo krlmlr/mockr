@@ -75,14 +75,15 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
   mocks <- extract_mocks(dots = dots, env = .env)
-
   new_funcs <- lapply(mocks, "[[", "new_value")
-
-  mock_env <- new.env(parent = parent.env(.parent))
 
   old_funcs <- as.list(.env)
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
+
+  # query value visible from .parent to support nesting
+  mock_env <- new.env(parent = parent.env(.parent))
+  old_funcs <- mget(names(old_funcs), .parent, inherits = TRUE)
   old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
 
   all_funcs <- c(new_funcs, old_funcs)

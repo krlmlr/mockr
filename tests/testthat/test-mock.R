@@ -33,7 +33,6 @@ test_that("non-empty mock with return value", {
 })
 
 test_that("nested mock", {
-  skip("NYI")
   with_mock(
     mockee = function() mockee2(),
     {
