@@ -45,22 +45,6 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   evaluate_in_mock_env(get_code_dots(dots), mock_env, .parent)
 }
 
-evaluate_in_mock_env <- function(code, mock_env, .parent) {
-  if (length(code) == 0L) {
-    return(invisible(NULL))
-  }
-
-  old_parent <- parent.env(.parent)
-  on.exit(parent.env(.parent) <- old_parent)
-  parent.env(.parent) <- mock_env
-
-  # Evaluate the code
-  for (expression in code[-length(code)]) {
-    lazyeval::lazy_eval(expression)
-  }
-  lazyeval::lazy_eval(code[[length(code)]])
-}
-
 get_mock_dots <- function(dots) {
   mock_qual_names <- names2(dots)
 
