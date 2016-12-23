@@ -55,11 +55,14 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
   parent.env(.parent) <- mock_env
 
   # Evaluate the code
-  ret <- invisible(NULL)
-  for (expression in code) {
-    ret <- lazyeval::lazy_eval(expression)
+  if (length(code) == 0L) {
+    return(invisible(NULL))
   }
-  ret
+
+  for (expression in code[-length(code)]) {
+    lazyeval::lazy_eval(expression)
+  }
+  lazyeval::lazy_eval(code[[length(code)]])
 }
 
 check_dots_env <- function(dots, .parent) {

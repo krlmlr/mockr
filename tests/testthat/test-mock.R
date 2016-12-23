@@ -66,7 +66,6 @@ test_that("empty or no-op mock", {
                  "Not mocking anything")
   expect_warning(expect_true(with_mock(TRUE)),
                  "Not mocking anything")
-  skip("NYI")
   expect_warning(expect_false(withVisible(with_mock(invisible(5)))$visible),
                  "Not mocking anything")
 })
