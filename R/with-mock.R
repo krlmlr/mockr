@@ -9,7 +9,7 @@
 #' in which the expressions are evaluated.  Everything happens at the R level,
 #' but only functions in your own package can be mocked.
 #' Otherwise, the implementation is modeled after the original version in the
-#' `testthat` pacakge, which is now deprecated
+#' `testthat` pacakge, which is now deprecated.
 #'
 #' @param ... `[any]`\cr named arguments redefine mocked functions,
 #'   unnamed parameters will be evaluated after mocking the functions

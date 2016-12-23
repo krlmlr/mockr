@@ -7,13 +7,13 @@
 with_mock(..., .parent = parent.frame(), .env = topenv(.parent))
 }
 \arguments{
-\item{...}{\code{[any]}\cr named parameters redefine mocked functions,
+\item{...}{\code{[any]}\cr named arguments redefine mocked functions,
 unnamed parameters will be evaluated after mocking the functions}
 
-\item{.parent}{the environment in which to evaluate the expressions,
+\item{.parent}{\code{[environment]}\cr the environment in which to evaluate the expressions,
 defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}
 
-\item{.env}{the environment in which to patch the functions,
+\item{.env}{\code{[environment]}\cr the environment in which to patch the functions,
 defaults to \code{\link[=topenv]{topenv()}}. Usually doesn't need to be changed.}
 }
 \value{
@@ -30,7 +30,7 @@ This works by adding a shadow environment as a parent of the environment
 in which the expressions are evaluated.  Everything happens at the R level,
 but only functions in your own package can be mocked.
 Otherwise, the implementation is modeled after the original version in the
-\code{testthat} pacakge, which is now deprecated
+\code{testthat} pacakge, which is now deprecated.
 }
 \examples{
 some_func <- function() stop("oops")
