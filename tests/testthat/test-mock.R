@@ -15,6 +15,13 @@ test_that("infinite depth", {
   )
 })
 
+test_that("infinite depth in package", {
+  with_mock(
+    mockee = function() 42,
+    expect_equal(mockee3(), 42)
+  )
+})
+
 test_that("mocked function is restored on error", {
   expect_error(
     with_mock(
