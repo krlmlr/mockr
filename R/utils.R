@@ -14,9 +14,6 @@ warningc <- function(...) {
   warning(..., call. = FALSE, domain = NA)
 }
 
-#' @importFrom memoise memoise
-warning_once <- memoise(warningc)
-
 names2 <- function(x) {
   names(x) %||% rep("", length(x))
 }
