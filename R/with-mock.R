@@ -47,13 +47,16 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
     code_pos <- (mock_qual_names == "")
   }
 
-  mock_env <- create_mock_env_(.dots = dots[!code_pos], .env = .env)
+  mock_env <- create_mock_env_(.dots = dots[!code_pos], .env = .env, .parent = .parent)
   code <- dots[code_pos]
+
+  old_parent <- parent.env(.parent)
+  on.exit(parent.env(.parent) <- old_parent)
+  parent.env(.parent) <- mock_env
 
   # Evaluate the code
   ret <- invisible(NULL)
   for (expression in code) {
-    parent.env(expression$env) <- mock_env
     ret <- lazyeval::lazy_eval(expression)
   }
   ret
@@ -68,19 +71,23 @@ check_dots_env <- function(dots, .parent) {
   }
 }
 
-create_mock_env_ <- function(..., .dots = NULL, .env = .env) {
+create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
   mocks <- extract_mocks(dots = dots, env = .env)
 
-  mocked <- as.list(.env)
-  mocked <- mocked[vapply(mocked, is.function, logical(1L))]
-  mocked[names(mocks)] <- lapply(mocks, "[[", "new_value")
+  new_funcs <- lapply(mocks, "[[", "new_value")
 
-  mock_env <- new.env(parent = .env)
-  mocked <- lapply(mocked, `environment<-`, mock_env)
+  mock_env <- new.env(parent = parent.env(.parent))
 
-  lapply(names(mocked), function(x) mock_env[[x]] <- mocked[[x]])
+  old_funcs <- as.list(.env)
+  old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
+  old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
+  old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
+
+  all_funcs <- c(new_funcs, old_funcs)
+
+  lapply(names(all_funcs), function(x) mock_env[[x]] <- all_funcs[[x]])
   mock_env
 }
 

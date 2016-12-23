@@ -94,7 +94,6 @@ test_that("changes to variables are preserved between calls and visible outside"
 })
 
 test_that("mocks can access local variables", {
-  skip("NYI")
   value <- TRUE
 
   with_mock(
