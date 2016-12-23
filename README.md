@@ -16,14 +16,32 @@ Example
 some_func <- function() stop("oops")
 some_other_func <- function() some_func()
 
+# Calling this function gives an error
+some_other_func()
+#> Error in some_func(): oops
+
 tester_func <- function() {
+  # Here, we override the function that raises the error
   with_mock(
     some_func = function() 42,
     some_other_func()
   )
 }
 
-try(some_other_func())
+# No error raised
 tester_func()
 #> [1] 42
+
+# Mocking doesn't override functions in the same environment by design
+with_mock(some_func = function() 6 * 7, some_other_func())
+#> Error in some_func(): oops
+```
+
+Installation
+------------
+
+Install from GitHub via
+
+``` r
+devtools::install_github("krlmlr/mockr")
 ```
