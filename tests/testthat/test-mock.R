@@ -70,9 +70,11 @@ test_that("can't mock non-function", {
 
 test_that("empty or no-op mock", {
   expect_warning(expect_null(with_mock()),
-                 "Not mocking anything")
+                 "Not (?:mocking|evaluating) anything", all = TRUE)
   expect_warning(expect_true(with_mock(TRUE)),
                  "Not mocking anything")
+  expect_warning(expect_null(with_mock(mockee = function() {})),
+                 "Not evaluating anything")
   expect_warning(expect_false(withVisible(with_mock(invisible(5)))$visible),
                  "Not mocking anything")
 })

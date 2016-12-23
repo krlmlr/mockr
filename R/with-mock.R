@@ -11,11 +11,11 @@
 #' Otherwise, the implementation is modeled after the original version in the
 #' `testthat` pacakge, which is now deprecated
 #'
-#' @param ... `[any]`\cr named parameters redefine mocked functions,
+#' @param ... `[any]`\cr named arguments redefine mocked functions,
 #'   unnamed parameters will be evaluated after mocking the functions
-#' @param .env the environment in which to patch the functions,
+#' @param .env `[environment]`\cr the environment in which to patch the functions,
 #'   defaults to [topenv()]. Usually doesn't need to be changed.
-#' @param .parent the environment in which to evaluate the expressions,
+#' @param .parent `[environment]`\cr the environment in which to evaluate the expressions,
 #'   defaults to [parent.frame()]. Usually doesn't need to be changed.
 #' @return The result of the last unnamed parameter, visibility is preserved
 #' @references Suraj Gupta (2012): \href{http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff}{How R Searches And Finds Stuff}
@@ -41,18 +41,8 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
 
   check_dots_env_(dots, .parent)
 
-  mock_qual_names <- names(dots)
-
-  if (all(mock_qual_names == "")) {
-    warning("Not mocking anything. Please use named parameters to specify the functions you want to mock.",
-            call. = FALSE)
-    code_pos <- rep(TRUE, length(mock_qual_names))
-  } else {
-    code_pos <- (mock_qual_names == "")
-  }
-
-  mock_env <- create_mock_env_(.dots = dots[!code_pos], .env = .env, .parent = .parent)
-  code <- dots[code_pos]
+  mock_env <- create_mock_env_(.dots = get_mock_dots(dots), .env = .env, .parent = .parent)
+  code <- get_code_dots(dots)
 
   old_parent <- parent.env(.parent)
   on.exit(parent.env(.parent) <- old_parent)
@@ -67,4 +57,28 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
     lazyeval::lazy_eval(expression)
   }
   lazyeval::lazy_eval(code[[length(code)]])
+}
+
+get_mock_dots <- function(dots) {
+  mock_qual_names <- names2(dots)
+
+  if (all(mock_qual_names == "")) {
+    warning("Not mocking anything. Please use named arguments to specify the functions you want to mock.",
+            call. = FALSE)
+    list()
+  } else {
+    dots[mock_qual_names != ""]
+  }
+}
+
+get_code_dots <- function(dots) {
+  mock_qual_names <- names2(dots)
+
+  if (all(mock_qual_names != "")) {
+    warning("Not evaluating anything. Please use unnamed arguments to specify expressions you want to evaluate.",
+            call. = FALSE)
+    list()
+  } else {
+    dots[mock_qual_names == ""]
+  }
 }
