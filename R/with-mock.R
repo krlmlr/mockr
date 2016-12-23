@@ -46,15 +46,15 @@ with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topen
 }
 
 evaluate_in_mock_env <- function(code, mock_env, .parent) {
+  if (length(code) == 0L) {
+    return(invisible(NULL))
+  }
+
   old_parent <- parent.env(.parent)
   on.exit(parent.env(.parent) <- old_parent)
   parent.env(.parent) <- mock_env
 
   # Evaluate the code
-  if (length(code) == 0L) {
-    return(invisible(NULL))
-  }
-
   for (expression in code[-length(code)]) {
     lazyeval::lazy_eval(expression)
   }
