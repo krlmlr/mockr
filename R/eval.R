@@ -1,4 +1,5 @@
 evaluate_with_mock_env <- function(code, mock_env, .parent) {
+  # Special treatment of last element, shortcut is important!
   if (length(code) == 0L) {
     return(invisible(NULL))
   }
