@@ -97,6 +97,10 @@ create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
 
   all_funcs <- c(new_funcs, old_funcs)
 
-  lapply(names(all_funcs), function(x) mock_env[[x]] <- all_funcs[[x]])
+  populate_env(mock_env, all_funcs)
   mock_env
+}
+
+populate_env <- function(env, funcs) {
+  lapply(names(funcs), function(x) env[[x]] <- funcs[[x]])
 }
