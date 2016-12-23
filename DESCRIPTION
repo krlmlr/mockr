@@ -4,7 +4,8 @@ Version: 0.0-0
 Authors@R: person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org")
 Description: Provides a drop-In replacement for 'testthat::with_mock()'.
 Imports: lazyeval
-Suggests: testthat
+Suggests: testthat,
+    covr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
