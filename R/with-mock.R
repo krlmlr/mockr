@@ -49,8 +49,7 @@ get_mock_dots <- function(dots) {
   mock_qual_names <- names2(dots)
 
   if (all(mock_qual_names == "")) {
-    warning("Not mocking anything. Please use named arguments to specify the functions you want to mock.",
-            call. = FALSE)
+    warningc("Not mocking anything. Please use named arguments to specify the functions you want to mock.")
     list()
   } else {
     dots[mock_qual_names != ""]
@@ -61,8 +60,7 @@ get_code_dots <- function(dots) {
   mock_qual_names <- names2(dots)
 
   if (all(mock_qual_names != "")) {
-    warning("Not evaluating anything. Please use unnamed arguments to specify expressions you want to evaluate.",
-            call. = FALSE)
+    warningc("Not evaluating anything. Please use unnamed arguments to specify expressions you want to evaluate.")
     list()
   } else {
     dots[mock_qual_names == ""]
