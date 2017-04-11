@@ -79,6 +79,33 @@ test_that("empty or no-op mock", {
                  "Not mocking anything")
 })
 
+test_that("multi-mock", {
+  expect_equal(
+    with_mock(
+      mockee = function() 1,
+      mockee2 = function() 2,
+      mockee()
+    ),
+    1
+  )
+  expect_equal(
+    with_mock(
+      mockee = function() 1,
+      mockee2 = function() 2,
+      mockee2()
+    ),
+    2
+  )
+  expect_equal(
+    with_mock(
+      mockee = function() 1,
+      mockee2 = function() 2,
+      mockee3()
+    ),
+    1
+  )
+})
+
 test_that("multiple return values", {
   expect_true(with_mock(FALSE, TRUE, mockee = identity))
   expect_equal(with_mock(3, mockee = identity, 5), 5)

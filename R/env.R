@@ -2,13 +2,14 @@ check_dots_env_ <- function(dots, .parent) {
   envs <- lapply(dots, "[[", "env")
   same <- vlapply(envs, identical, .parent)
   if (!all(same)) {
-    stop("Can only evaluate expressions in the parent environment.",
-         call. = FALSE)
+    stopc("Can only evaluate expressions in the parent environment.")
   }
 }
 
 create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
+
+  if (is.character(.env)) .env <- asNamespace(.env)
 
   new_funcs <- extract_new_funcs_(dots, .env)
   mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
