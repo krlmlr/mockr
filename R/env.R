@@ -9,6 +9,8 @@ check_dots_env_ <- function(dots, .parent) {
 create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
   dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
 
+  if (is.character(.env)) .env <- asNamespace(.env)
+
   new_funcs <- extract_new_funcs_(dots, .env)
   mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
   populate_env(mock_env, new_funcs)
