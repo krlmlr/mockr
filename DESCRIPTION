@@ -1,6 +1,6 @@
 Package: mockr
 Title: Mocking in R
-Version: 0.0-3
+Version: 0.1
 Authors@R: person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org")
 Description: Provides a drop-In replacement for 'testthat::with_mock()'.
 Imports: lazyeval
@@ -9,7 +9,7 @@ Suggests: testthat,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Date: 2017-04-12
+Date: 2017-04-28
 BugReports: https://github.com/krlmlr/mockr/issues
 URL: https://github.com/krlmlr/mockr, http://krlmlr.github.io/mockr
 Roxygen: list(markdown = TRUE)
