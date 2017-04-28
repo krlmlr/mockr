@@ -2,7 +2,7 @@ Package: mockr
 Title: Mocking in R
 Version: 0.1
 Authors@R: person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org")
-Description: Provides a drop-In replacement for 'testthat::with_mock()'.
+Description: Provides a drop-in replacement for 'testthat::with_mock()'.
 Imports: lazyeval
 Suggests: testthat,
     covr
