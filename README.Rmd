@@ -14,7 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# mockr [![Travis-CI Build Status](https://travis-ci.org/krlmlr/mockr.svg?branch=master)](https://travis-ci.org/krlmlr/mockr) [![Coverage Status](https://img.shields.io/codecov/c/github/krlmlr/mockr/master.svg)](https://codecov.io/github/krlmlr/mockr?branch=master)
+# mockr [![Travis-CI Build Status](https://travis-ci.org/krlmlr/mockr.svg?branch=master)](https://travis-ci.org/krlmlr/mockr) [![Coverage Status](https://img.shields.io/codecov/c/github/krlmlr/mockr/master.svg)](https://codecov.io/github/krlmlr/mockr?branch=master) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr)
+
 
 The goal of mockr is to provide a drop-in replacement for `testthat::with_mock()`
 which will be deprecated in the next version of `testthat`. The only exported
