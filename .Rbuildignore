@@ -6,3 +6,4 @@
 ^tic\.R$
 ^codecov\.yml$
 ^_pkgdown\.yml$
+^cran-comments\.md$
