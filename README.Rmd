@@ -1,20 +1,27 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: downlit::readme_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
+
+pkgload::load_all()
 ```
 
-# mockr [![Travis-CI Build Status](https://travis-ci.org/krlmlr/mockr.svg?branch=master)](https://travis-ci.org/krlmlr/mockr) [![Coverage Status](https://img.shields.io/codecov/c/github/krlmlr/mockr/master.svg)](https://codecov.io/github/krlmlr/mockr?branch=master) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr)
+# mockr
+
+<!-- badges: start -->
+[![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr)
+[![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mockr?branch=master)
+<!-- badges: end -->
 
 
 The goal of mockr is to provide a drop-in replacement for `testthat::with_mock()`
@@ -36,11 +43,9 @@ If you encounter other problems, please [file an issue](https://github.com/krlml
 
 ## Example
 
-```{r load, echo=FALSE, message=FALSE}
-devtools::load_all()
-```
-
 ```{r example, error = TRUE}
+library(mockr)
+
 some_func <- function() stop("oops")
 some_other_func <- function() some_func()
 
