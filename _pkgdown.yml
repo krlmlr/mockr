@@ -3,3 +3,7 @@ url: https://krlmlr.github.io/mockr
 template:
   params:
     bootswatch: flatly # https://bootswatch.com/flatly/
+
+authors:
+  Kirill Müller:
+    href: http://krlmlr.info
