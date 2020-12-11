@@ -2,8 +2,6 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
-^\.travis\.yml$
-^tic\.R$
 ^codecov\.yml$
 ^_pkgdown\.yml$
 ^cran-comments\.md$
