@@ -102,7 +102,7 @@
 
 <span class="nv">tester_func</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
   <span class="c"># Here, we override the function that raises the error</span>
-  <span class="nf"><a href="https://rdrr.io/pkg/mockr/man/with_mock.html">with_mock</a></span><span class="o">(</span>
+  <span class="nf"><a href="https://krlmlr.github.io/mockr/reference/with_mock.html">with_mock</a></span><span class="o">(</span>
     some_func <span class="o">=</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="m">42</span>,
     <span class="nf">some_other_func</span><span class="o">(</span><span class="o">)</span>
   <span class="o">)</span>
@@ -113,7 +113,7 @@
 <span class="c">#&gt; [1] 42</span>
 
 <span class="c"># Mocking doesn't override functions in the same environment by design</span>
-<span class="nf"><a href="https://rdrr.io/pkg/mockr/man/with_mock.html">with_mock</a></span><span class="o">(</span>some_func <span class="o">=</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="m">6</span> <span class="o">*</span> <span class="m">7</span>, <span class="nf">some_other_func</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+<span class="nf"><a href="https://krlmlr.github.io/mockr/reference/with_mock.html">with_mock</a></span><span class="o">(</span>some_func <span class="o">=</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="m">6</span> <span class="o">*</span> <span class="m">7</span>, <span class="nf">some_other_func</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
 <span class="c">#&gt; Error in some_func(): oops</span></pre>
 </div>
 <div id="installation" class="section level2">
@@ -162,7 +162,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/krlmlr/mockr/actions"><img src="https://github.com/krlmlr/mockr/workflows/rcc/badge.svg" alt="rcc"></a></li>
-<li><a href="https://cran.r-project.org/package=mockr"><img src="http://www.r-pkg.org/badges/version/mockr" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=mockr"><img src="https://www.r-pkg.org/badges/version/mockr" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://codecov.io/gh/krlmlr/mockr?branch=master"><img src="https://codecov.io/gh/krlmlr/mockr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
