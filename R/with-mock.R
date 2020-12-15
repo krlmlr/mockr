@@ -32,16 +32,11 @@
 #' try(some_other_func())
 #' tester_func()
 with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
-  .dots <- lazyeval::lazy_dots(...)
-  with_mock_(.dots = .dots, .parent = .parent, .env = .env)
-}
-
-with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topenv(.parent)) {
-  dots <- lazyeval::all_dots(.dots, ...)
+  dots <- enquos(...)
 
   check_dots_env_(dots, .parent)
 
-  mock_env <- create_mock_env_(.dots = get_mock_dots(dots), .env = .env, .parent = .parent)
+  mock_env <- create_mock_env_(get_mock_dots(dots), .env = .env, .parent = .parent)
   evaluate_with_mock_env(get_code_dots(dots), mock_env, .parent)
 }
 

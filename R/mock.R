@@ -6,7 +6,7 @@ extract_mocks <- function(dots, env) {
 extract_mock <- function(qual_name, dot, env) {
   name <- extract_mock_name(qual_name)
   check_mock(name, env)
-  mock(name = name, new = lazyeval::lazy_eval(dot))
+  mock(name = name, new = eval_tidy(dot))
 }
 
 extract_mock_name <- function(qual_name) {

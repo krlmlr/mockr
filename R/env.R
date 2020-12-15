@@ -1,14 +1,16 @@
 check_dots_env_ <- function(dots, .parent) {
-  envs <- lapply(dots, "[[", "env")
-  same <- vlapply(envs, identical, .parent)
+  same <- vlapply(dots, quo_is_env, .parent)
   if (!all(same)) {
     abort("Can only evaluate expressions in the parent environment.")
   }
 }
 
-create_mock_env_ <- function(..., .dots = NULL, .env, .parent) {
-  dots <- lazyeval::all_dots(.dots, ..., all_named = TRUE)
+quo_is_env <- function(quo, env) {
+  quo_env <- quo_get_env(quo)
+  identical(quo_env, env) || identical(quo_env, rlang::empty_env())
+}
 
+create_mock_env_ <- function(dots, .env, .parent) {
   if (is.character(.env)) .env <- asNamespace(.env)
 
   new_funcs <- extract_new_funcs_(dots, .env)

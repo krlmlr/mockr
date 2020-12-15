@@ -10,7 +10,10 @@ evaluate_with_mock_env <- function(code, mock_env, .parent) {
 
   # Evaluate the code
   for (expression in code[-length(code)]) {
-    lazyeval::lazy_eval(expression)
+    # Can't use eval_tidy(), otherwise changes to variables
+    # are not visible outside
+    # https://github.com/r-lib/rlang/issues/1077
+    eval(quo_get_expr(expression), .parent)
   }
-  lazyeval::lazy_eval(code[[length(code)]])
+  eval(quo_get_expr(code[[length(code)]]), .parent)
 }
