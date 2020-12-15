@@ -1,5 +1,9 @@
 context("Mock")
 
+test_that("what happened to topenv?", {
+  expect_identical(topenv(), asNamespace("mockr"))
+})
+
 test_that("direct mocking", {
   with_mock(
     mockee = function() 42,
