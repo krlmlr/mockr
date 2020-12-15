@@ -6,13 +6,16 @@
 \alias{mockr-package}
 \title{mockr: Mocking in R}
 \description{
-Provides a drop-In replacement for 'testthat::with_mock()'.
+Provides a means to mock a package function, i.e.,
+    temporarily substitute it for testing. Designed as a drop-in
+    replacement for 'testthat::with_mock()', which may break in R 3.4.0
+    and later.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://krlmlr.github.io/mockr/}
   \item \url{https://github.com/krlmlr/mockr}
-  \item \url{http://krlmlr.github.io/mockr}
   \item Report bugs at \url{https://github.com/krlmlr/mockr/issues}
 }
 
