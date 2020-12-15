@@ -7,6 +7,27 @@ test_that("direct mocking", {
   )
 })
 
+test_that("indirect mocking", {
+  with_mock(
+    mockee = function() 42,
+    expect_equal(mocker(), 42)
+  )
+})
+
+test_that("direct mocking with dot (#4)", {
+  with_mock(
+    .mockee = function() 42,
+    expect_equal(.mockee(), 42)
+  )
+})
+
+test_that("indirect mocking with dot (#4)", {
+  with_mock(
+    .mockee = function() 42,
+    expect_equal(.mocker(), 42)
+  )
+})
+
 test_that("infinite depth", {
   call_mockee <- function() mockee()
   with_mock(

@@ -29,7 +29,7 @@ extract_new_funcs_ <- function(dots, .env) {
 
 create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
   # retrieve all functions not mocked
-  old_funcs <- as.list(.env)
+  old_funcs <- as.list(.env, all.names = TRUE)
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
 
