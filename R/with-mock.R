@@ -32,16 +32,11 @@
 #' try(some_other_func())
 #' tester_func()
 with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
-  .dots <- lazyeval::lazy_dots(...)
-  with_mock_(.dots = .dots, .parent = .parent, .env = .env)
-}
-
-with_mock_ <- function(..., .dots = NULL, .parent = parent.frame(), .env = topenv(.parent)) {
-  dots <- lazyeval::all_dots(.dots, ...)
+  dots <- enquos(...)
 
   check_dots_env_(dots, .parent)
 
-  mock_env <- create_mock_env_(.dots = get_mock_dots(dots), .env = .env, .parent = .parent)
+  mock_env <- create_mock_env_(get_mock_dots(dots), .env = .env, .parent = .parent)
   evaluate_with_mock_env(get_code_dots(dots), mock_env, .parent)
 }
 
@@ -49,7 +44,7 @@ get_mock_dots <- function(dots) {
   mock_qual_names <- names2(dots)
 
   if (all(mock_qual_names == "")) {
-    warningc("Not mocking anything. Please use named arguments to specify the functions you want to mock.")
+    warn("Not mocking anything. Please use named arguments to specify the functions you want to mock.")
     list()
   } else {
     dots[mock_qual_names != ""]
@@ -60,7 +55,7 @@ get_code_dots <- function(dots) {
   mock_qual_names <- names2(dots)
 
   if (all(mock_qual_names != "")) {
-    warningc("Not evaluating anything. Please use unnamed arguments to specify expressions you want to evaluate.")
+    warn("Not evaluating anything. Please use unnamed arguments to specify expressions you want to evaluate.")
     list()
   } else {
     dots[mock_qual_names == ""]
