@@ -2,7 +2,7 @@ check_dots_env_ <- function(dots, .parent) {
   envs <- lapply(dots, "[[", "env")
   same <- vlapply(envs, identical, .parent)
   if (!all(same)) {
-    stopc("Can only evaluate expressions in the parent environment.")
+    abort("Can only evaluate expressions in the parent environment.")
   }
 }
 

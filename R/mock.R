@@ -17,7 +17,7 @@ extract_mock_name <- function(qual_name) {
 
   pkg_name <- gsub(pkg_and_name_rx, "\\1", qual_name)
   if (pkg_name != "") {
-    warningc("with_mock() cannot mock functions defined in other packages.")
+    warn("`with_mock()` cannot mock functions defined in other packages.")
   }
 
   name <- gsub(pkg_and_name_rx, "\\2", qual_name)
@@ -27,10 +27,10 @@ extract_mock_name <- function(qual_name) {
 check_mock <- function(name, env) {
   orig <- mget(name, envir = env, ifnotfound = list(NULL))[[1]]
   if (is.null(orig)) {
-    stopc(name, " not found in environment ", environmentName(env), ".")
+    abort(paste0(name, " not found in environment ", environmentName(env), "."))
   }
   if (!is.function(orig)) {
-    stopc(name, " is not a function in environment ", environmentName(env), ".")
+    abort(paste0(name, " is not a function in environment ", environmentName(env), "."))
   }
 }
 
