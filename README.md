@@ -4,7 +4,7 @@
 
 <!-- badges: start -->
 
-[![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr) [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mockr?branch=master)
+[![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions) [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr) [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mockr?branch=master)
 
 <!-- badges: end -->
 
@@ -32,7 +32,7 @@ If you encounter other problems, please [file an issue](https://github.com/krlml
 
 <span class='nv'>tester_func</span> <span class='o'>&lt;-</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='o'>{</span>
   <span class='c'># Here, we override the function that raises the error</span>
-  <span class='nf'><a href='https://rdrr.io/pkg/mockr/man/with_mock.html'>with_mock</a></span><span class='o'>(</span>
+  <span class='nf'><a href='https://krlmlr.github.io/mockr/reference/with_mock.html'>with_mock</a></span><span class='o'>(</span>
     some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>42</span>,
     <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span>
   <span class='o'>)</span>
@@ -43,7 +43,7 @@ If you encounter other problems, please [file an issue](https://github.com/krlml
 <span class='c'>#&gt; [1] 42</span>
 
 <span class='c'># Mocking doesn't override functions in the same environment by design</span>
-<span class='nf'><a href='https://rdrr.io/pkg/mockr/man/with_mock.html'>with_mock</a></span><span class='o'>(</span>some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>6</span> <span class='o'>*</span> <span class='m'>7</span>, <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span><span class='o'>)</span>
+<span class='nf'><a href='https://krlmlr.github.io/mockr/reference/with_mock.html'>with_mock</a></span><span class='o'>(</span>some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>6</span> <span class='o'>*</span> <span class='m'>7</span>, <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span><span class='o'>)</span>
 <span class='c'>#&gt; Error in some_func(): oops</span></pre>
 
 ## Installation
