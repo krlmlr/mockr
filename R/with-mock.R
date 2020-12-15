@@ -12,12 +12,12 @@
 #' `testthat` package, which is now deprecated.
 #'
 #' @param ... `[any]`\cr named arguments redefine mocked functions,
-#'   unnamed parameters will be evaluated after mocking the functions
+#'   unnamed arguments will be evaluated after mocking the functions
 #' @param .env `[environment]`\cr the environment in which to patch the functions,
 #'   defaults to [topenv()]. Usually doesn't need to be changed.
 #' @param .parent `[environment]`\cr the environment in which to evaluate the expressions,
 #'   defaults to [parent.frame()]. Usually doesn't need to be changed.
-#' @return The result of the last unnamed parameter, visibility is preserved
+#' @return The result of the last unnamed argument, visibility is preserved
 #' @references Suraj Gupta (2012): [How R Searches And Finds Stuff](http://blog.obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
 #' @export
 #' @examples
