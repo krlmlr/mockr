@@ -1,3 +1,10 @@
+# mockr 0.1.0.9000 (2020-12-15)
+
+- Functions that start with a dot can be mocked (#3, #4).
+- Switch to rlang (#13).
+- Switch to GitHub Actions (#10).
+
+
 # mockr 0.1 (2017-04-28)
 
 Initial CRAN release.
