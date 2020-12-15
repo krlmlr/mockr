@@ -34,6 +34,6 @@ check_mock <- function(name, env) {
   }
 }
 
-mock <- function(name, env, orig, new) {
+mock <- function(name, new) {
   structure(list(name = as.name(name), new_value = new), class = "mock")
 }
