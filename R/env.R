@@ -1,3 +1,28 @@
+#' Get environment for mocking
+#'
+#' Returns the environment where to update mocked functions.
+#'
+#' In testing scenarios, mocked functions must be overwritten
+#' the environment returned by `asNamespace("<package>")`
+#' must be rechained.
+#' This is not the same environment as [topenv()].
+#'
+#' @inheritParams with_mock
+#'
+#' @export
+get_mock_env <- function(.parent = parent.frame()) {
+  top <- topenv(.parent)
+  name <- attr(parent.env(top), "name")
+
+  if (is.null(name)) {
+    return(top)
+  }
+
+  ns <- sub("^imports:", "", name)
+  asNamespace(ns)
+}
+
+
 check_dots_env_ <- function(dots, .parent) {
   same <- vlapply(dots, quo_is_env, .parent)
   if (!all(same)) {

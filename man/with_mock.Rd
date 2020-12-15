@@ -4,7 +4,7 @@
 \alias{with_mock}
 \title{Mock functions in a package.}
 \usage{
-with_mock(..., .parent = parent.frame(), .env = topenv(.parent))
+with_mock(..., .parent = parent.frame(), .env = get_mock_env(.parent))
 }
 \arguments{
 \item{...}{\verb{[any]}\cr named arguments redefine mocked functions,

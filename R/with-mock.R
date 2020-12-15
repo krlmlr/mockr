@@ -31,7 +31,7 @@
 #' }
 #' try(some_other_func())
 #' tester_func()
-with_mock <- function(..., .parent = parent.frame(), .env = topenv(.parent)) {
+with_mock <- function(..., .parent = parent.frame(), .env = get_mock_env(.parent)) {
   dots <- enquos(...)
 
   check_dots_env_(dots, .parent)
