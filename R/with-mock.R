@@ -11,8 +11,11 @@
 #' Otherwise, the implementation is modeled after the original version in the
 #' `testthat` package, which is now deprecated.
 #'
-#' @param ... `[any]`\cr named arguments redefine mocked functions,
-#'   unnamed arguments will be evaluated after mocking the functions
+#' @param ... `[any]`\cr Named arguments redefine mocked functions.
+#'   unnamed arguments will be evaluated after mocking the functions.
+#'   Use `:=` to mock functions that start with a dot
+#'   to avoid potential collision with current or future arguments
+#'   to `with_mock()`.
 #' @param .env `[environment]`\cr the environment in which to patch the functions,
 #'   defaults to [topenv()]. Usually doesn't need to be changed.
 #' @param .parent `[environment]`\cr the environment in which to evaluate the expressions,

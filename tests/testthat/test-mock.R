@@ -70,6 +70,7 @@ test_that("nested mock", {
           expect_equal(mockee(), 42)
         }
       )
+      expect_error(mockee2())
     }
   )
   expect_error(mockee())

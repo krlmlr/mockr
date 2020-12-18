@@ -7,8 +7,11 @@
 with_mock(..., .parent = parent.frame(), .env = get_mock_env(.parent))
 }
 \arguments{
-\item{...}{\verb{[any]}\cr named arguments redefine mocked functions,
-unnamed arguments will be evaluated after mocking the functions}
+\item{...}{\verb{[any]}\cr Named arguments redefine mocked functions.
+unnamed arguments will be evaluated after mocking the functions.
+Use \verb{:=} to mock functions that start with a dot
+to avoid potential collision with current or future arguments
+to \code{with_mock()}.}
 
 \item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions,
 defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}

@@ -4,11 +4,16 @@
 \alias{get_mock_env}
 \title{Get environment for mocking}
 \usage{
-get_mock_env(.parent = parent.frame())
+get_mock_env(.parent = parent.frame(), .quiet = !is_interactive())
 }
 \arguments{
 \item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions,
 defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}
+
+\item{.quiet}{\verb{[flag]}\cr
+Set to \code{TRUE} to skip message about mocking environment.
+In testthat, the message is never printed if the mocking environment
+is the same as \code{\link[testthat:is_testing]{testthat::testing_package()}}.}
 }
 \description{
 Returns the environment where to update mocked functions.

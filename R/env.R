@@ -9,17 +9,58 @@
 #'
 #' @inheritParams with_mock
 #'
+#' @param .quiet `[flag]`\cr
+#'   Set to `TRUE` to skip message about mocking environment.
+#'   In testthat, the message is never printed if the mocking environment
+#'   is the same as [testthat::testing_package()].
+#'
 #' @export
-get_mock_env <- function(.parent = parent.frame()) {
+get_mock_env <- function(.parent = parent.frame(), .quiet = !is_interactive()) {
   top <- topenv(.parent)
-  name <- attr(parent.env(top), "name")
+  env <- parent.env(top)
 
-  if (is.null(name)) {
-    return(top)
+  out <- NULL
+  for (i in 1:1000) {
+    name <- attr(env, "name")
+
+    if (!is.null(name)) {
+      if (grepl("^package:", name)) {
+        ns <- sub("^package:", "", name)
+        out <- asNamespace(ns)
+
+        if (exists(".__DEVTOOLS__", out)) {
+          break
+        } else {
+          out <- NULL
+        }
+      } else if (grepl("^imports:", name)) {
+        ns <- sub("^imports:", "", name)
+        out <- asNamespace(ns)
+
+        if (is_installed("testthat") && testthat::testing_package() == ns) {
+          .quiet <- TRUE
+        }
+        break
+      }
+    }
+
+    env <- parent.env(env)
+    if (identical(env, empty_env())) {
+      out <- top
+      break
+    }
   }
 
-  ns <- sub("^imports:", "", name)
-  asNamespace(ns)
+  if (is.null(out)) {
+    warn("No suitable mocking environment found.")
+    out <- top
+  }
+
+  if (!.quiet) {
+    message(paste0("Mocking environment: ", format(out)))
+  }
+
+  out
 }
 
 
