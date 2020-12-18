@@ -12,10 +12,14 @@
 #' `testthat` package, which is now deprecated.
 #'
 #' @param ... `[any]`\cr Named arguments redefine mocked functions.
-#'   unnamed arguments will be evaluated after mocking the functions.
+#'   An unnamed argument containing code in braces (`{}`) should be provided
+#'   to `with_mock()`,
+#'   it will be evaluated after mocking the functions.
 #'   Use `:=` to mock functions that start with a dot
 #'   to avoid potential collision with current or future arguments
-#'   to `with_mock()`.
+#'   to `with_mock()` or `local_mock()`.
+#'   Passing more than one unnamed argument to `with_mock()`,
+#'   or code that is not inside braces, gives a warning.
 #' @param .parent `[environment]`\cr the environment in which to evaluate the expressions,
 #'   defaults to [parent.frame()]. Usually doesn't need to be changed.
 #' @param .env `[environment]`\cr the environment in which to patch the functions,

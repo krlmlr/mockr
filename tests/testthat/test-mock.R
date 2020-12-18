@@ -3,7 +3,9 @@ context("Mock")
 test_that("direct mocking via with_mock()", {
   with_mock(
     mockee = function() 42,
-    expect_equal(mockee(), 42)
+    {
+      expect_equal(mockee(), 42)
+    }
   )
 })
 
@@ -44,7 +46,9 @@ test_that("mocked function is restored on error", {
   expect_error(
     with_mock(
       mockee = function(x, y, ...) list(equal = TRUE, message = "TRUE"),
-      stop("Simulated error")
+      {
+        stop("Simulated error")
+      }
     ),
     "Simulated error"
   )
@@ -56,7 +60,9 @@ test_that("non-empty mock with return value", {
   expect_true(
     with_mock(
       mockee = function(x, y, ...) list(equal = TRUE, message = "TRUE"),
-      TRUE
+      {
+        TRUE
+      }
     )
   )
 })
@@ -132,7 +138,9 @@ test_that("multi-mock", {
     with_mock(
       mockee = function() 1,
       mockee2 = function() 2,
-      mockee()
+      {
+        mockee()
+      }
     ),
     1
   )
@@ -140,7 +148,9 @@ test_that("multi-mock", {
     with_mock(
       mockee = function() 1,
       mockee2 = function() 2,
-      mockee2()
+      {
+        mockee2()
+      }
     ),
     2
   )
@@ -148,29 +158,44 @@ test_that("multi-mock", {
     with_mock(
       mockee = function() 1,
       mockee2 = function() 2,
-      mockee3()
+      {
+        mockee3()
+      }
     ),
     1
   )
 })
 
+test_that("un-braced (#15)", {
+  expect_warning(
+    expect_true(with_mock(TRUE, mockee = identity)),
+    "braced expression"
+  )
+})
+
 test_that("multiple return values", {
-  expect_true(with_mock(FALSE, TRUE, mockee = identity))
-  expect_equal(with_mock(3, mockee = identity, 5), 5)
+  expect_warning(
+    expect_true(with_mock(FALSE, TRUE, mockee = identity)),
+    "multiple"
+  )
+  expect_warning(
+    expect_equal(with_mock({ 3 }, mockee = identity, 5), { 5 }),
+    "multiple"
+  )
 })
 
 test_that("can access variables defined in function", {
   x <- 5
-  expect_equal(with_mock(x, mockee = identity), 5)
+  expect_equal(with_mock({ x }, mockee = identity), 5)
 })
 
 test_that("changes to variables are preserved between calls and visible outside", {
   x <- 1
-  with_mock(
+  expect_warning(with_mock(
     mockee = identity,
     x <- 3,
     expect_equal(x, 3)
-  )
+  ))
   expect_equal(x, 3)
 })
 
@@ -178,7 +203,9 @@ test_that("mocks can access local variables", {
   value <- TRUE
 
   with_mock(
-    expect_true(mockee()),
+    {
+      expect_true(mockee())
+    },
     mockee = function() {value}
   )
 })
@@ -187,7 +214,9 @@ test_that("mocks can update local variables", {
   value <- TRUE
 
   with_mock(
-    expect_false(mockee()),
+    {
+      expect_false(mockee())
+    },
     mockee = function() { value <<- FALSE; value }
   )
 
