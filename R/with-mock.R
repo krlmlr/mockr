@@ -50,12 +50,12 @@ local_mock <- function(...,
     abort("All arguments to `local_mock()` must be named.")
   }
 
-  mock_dots <- get_mock_dots(dots)
-  if (length(mock_dots) == 0) {
+  mock_funs <- get_mock_dots(dots)
+  if (length(mock_funs) == 0) {
     return()
   }
 
-  mock_env <- create_mock_env_(mock_dots, .env = .env, .parent = .parent)
+  mock_env <- create_mock_env_(mock_funs, .env = .env, .parent = .parent)
 
   local_mock_env(mock_env, .parent, .defer_env)
   invisible()
