@@ -2,7 +2,7 @@
 title: "Mocking with mockr"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mockr}
+  %\VignetteIndexEntry{Mocking with mockr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -72,6 +72,48 @@ This package is most useful in conjunction with testthat, the remainder of this 
 
 ## Create demo package
 
+We create a package called {mocktest} for demonstration.
+For this demo, the package is created in a temporary directory.
+A real project will live somewhere in your home directory.
+The `usethis::create_package()` function sets up a package project ready for development.
+The output shows the details of the package created.
+
+```{r create-package}
+pkg <- usethis::create_package(file.path(tempdir(), "mocktest"))
+```
+
+In an interactive RStudio session, a new window opens.
+Users of other environments would change the working directory manually.
+For this demo, we manually set the active project.
+
+```{r set-focus, include = FALSE}
+wd <- getwd()
+
+knitr::knit_hooks$set(
+  pkg = function(before, options, envir) {
+    if (before) {
+      wd <<- setwd(pkg)
+    } else {
+      setwd(wd)
+    }
+
+    invisible()
+  }
+)
+
+knitr::opts_chunk$set(pkg = TRUE)
+```
+
+```{r pkg-location}
+usethis::proj_set()
+```
+
+The infrastructure files and directories that comprise a minimal R package are created:
+
+```{r dir-tree}
+fs::dir_tree()
+```
+
 ## Slow function with side effect
 
 ## Adding test with mock
@@ -83,3 +125,5 @@ This package is most useful in conjunction with testthat, the remainder of this 
 ## Write wrapper functions
 
 ## Mock S3 methods
+
+## The development phase
