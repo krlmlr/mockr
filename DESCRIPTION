@@ -19,6 +19,7 @@ Imports:
     rlang
 Suggests: 
     covr,
+    pkgload,
     testthat
 Encoding: UTF-8
 LazyData: true

@@ -1,3 +1,63 @@
+#' Get environment for mocking
+#'
+#' Called by default from [with_mock()] to determine
+#' the environment where to update mocked functions.
+#' This function is exported to help troubleshooting.
+#'
+#' This function works differently depending on
+#' [testthat::is_testing()].
+#'
+#' Outside testthat, `topenv(.parent)` is returned.
+#' This was the default for mockr < 0.1.0 and works for many cases.
+#'
+#' In testthat, `asNamespace("<package>")` for the tested package is returned.
+#' The tested package is determined via [testthat::testing_package()].
+#' If this is empty (e.g. if a `test_that()` block is run in interactive mode),
+#' this function looks in the search path for packages loaded by
+#' [pkgload::load_all()].
+#'
+#' @inheritParams with_mock
+#'
+#' @export
+get_mock_env <- function(.parent = parent.frame()) {
+  top <- topenv(.parent)
+
+  testing <- is_installed("testthat") && testthat::is_testing()
+  if (!testing) {
+    return(top)
+  }
+
+  pkg <- testthat::testing_package()
+  if (pkg != "") {
+    return(asNamespace(pkg))
+  }
+
+  env <- parent.env(top)
+
+  for (i in 1:1000) {
+    name <- attr(env, "name")
+
+    if (!is.null(name)) {
+      if (grepl("^package:", name)) {
+        ns <- sub("^package:", "", name)
+        ns_env <- asNamespace(ns)
+
+        if (exists(".__DEVTOOLS__", ns_env)) {
+          return(ns_env)
+        }
+      }
+    }
+
+    env <- parent.env(env)
+    if (identical(env, empty_env())) {
+      break
+    }
+  }
+
+  warn("No package loaded, using `topenv()` as mocking environment.")
+  top
+}
+
 check_dots_env_ <- function(dots, .parent) {
   same <- vlapply(dots, quo_is_env, .parent)
   if (!all(same)) {
@@ -34,11 +94,13 @@ create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
 
   # query value visible from .parent to support nesting
-  mock_env <- new.env(parent = parent.env(.parent))
   old_funcs <- mget(names(old_funcs), .parent, inherits = TRUE)
-  old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
 
+  # create and populate mocking environment
+  mock_env <- new.env(parent = parent.env(.parent))
+  old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
   populate_env(mock_env, old_funcs)
+
   mock_env
 }
 
