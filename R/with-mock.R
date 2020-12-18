@@ -84,8 +84,11 @@ with_mock <- function(...,
 
   check_dots_env_(dots, .parent)
 
-  mock_env <- create_mock_env_(get_mock_dots(dots), .env = .env, .parent = .parent)
-  evaluate_with_mock_env(get_code_dots(dots), mock_env, .parent)
+  mock_funs <- get_mock_dots(dots)
+  mock_env <- create_mock_env_(mock_funs, .env = .env, .parent = .parent)
+
+  local_mock_env(mock_env, .parent)
+  evaluate_code(get_code_dots(dots), .parent)
 }
 
 get_mock_dots <- function(dots) {

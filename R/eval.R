@@ -1,10 +1,8 @@
-evaluate_with_mock_env <- function(code, mock_env, .parent) {
+evaluate_code <- function(code, .parent) {
   # Special treatment of last element, shortcut is important!
   if (length(code) == 0L) {
     return(invisible(NULL))
   }
-
-  local_mock_env(mock_env, .parent)
 
   # Evaluate the code
   for (expression in code[-length(code)]) {
