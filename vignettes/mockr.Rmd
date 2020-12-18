@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+set.seed(20201218)
 ```
 
 The mockr package helps testing code that relies on functions that are slow, have unintended side effects or access resources that may not be available when testing.
@@ -144,9 +146,35 @@ work_with_resource_pkg()
 
 ## Adding test with mock
 
-## Run all tests in package
+We create a test that tests `work_with_resource_pkg()`, mocking `access_resource_pkg()`.
+We need to prefix with the package name, because testthat provides its own `testthat::local_mock()` which is now deprecated.
+
+```{r test}
+usethis::use_testthat()
+```
+
+```{bash create-test}
+cat > tests/testthat/test-resource.R <<"EOF"
+test_that("Can work with resource", {
+  mockr::local_mock(access_resource_pkg = function() {
+    42
+  })
+
+  expect_message(expect_equal(work_with_resource_pkg(), 42))
+})
+EOF
+```
+
+The test succeeds:
+
+```{r error = TRUE}
+testthat::test_local(reporter = "location")
+```
+
 
 ## Run individual tests
+
+
 
 ## Write wrapper functions
 
