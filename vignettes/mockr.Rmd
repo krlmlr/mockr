@@ -114,7 +114,33 @@ The infrastructure files and directories that comprise a minimal R package are c
 fs::dir_tree()
 ```
 
-## Slow function with side effect
+## Import function
+
+We copy the functions from the previous example (under different names) into the package.
+Normally we would use a text editor:
+
+```{bash import}
+cat > R/resource.R <<"EOF"
+access_resource_pkg <- function() {
+  message("Trying to access resource...")
+  # For some reason we can't access the resource in our tests.
+  stop("Can't access resource now.")
+}
+
+work_with_resource_pkg <- function() {
+  resource <- access_resource_pkg()
+  message("Fetched resource: ", resource)
+  invisible(resource)
+}
+EOF
+```
+
+Loading the package and calling the function gives the error we have seen before:
+
+```{r run-pkg, error = TRUE}
+pkgload::load_all()
+work_with_resource_pkg()
+```
 
 ## Adding test with mock
 
