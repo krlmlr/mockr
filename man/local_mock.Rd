@@ -71,7 +71,9 @@ tester_func()
 tester_func_with <- function() {
   with_mock(
     some_func = function() 42,
-    some_other_func()
+    {
+      some_other_func()
+    }
   )
 }
 tester_func_with()

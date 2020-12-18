@@ -8,8 +8,8 @@
 \description{
 Provides a means to mock a package function, i.e.,
     temporarily substitute it for testing. Designed as a drop-in
-    replacement for 'testthat::with_mock()', which may break in R 3.4.0
-    and later.
+    replacement for the now deprecated 'testthat::with_mock()' and
+    'testthat::local_mock()'.
 }
 \seealso{
 Useful links:
