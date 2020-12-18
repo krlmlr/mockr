@@ -16,7 +16,8 @@ URL: https://krlmlr.github.io/mockr/,
     https://github.com/krlmlr/mockr
 BugReports: https://github.com/krlmlr/mockr/issues
 Imports: 
-    rlang
+    rlang,
+    withr
 Suggests: 
     covr,
     pkgload,
