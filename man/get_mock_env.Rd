@@ -4,23 +4,27 @@
 \alias{get_mock_env}
 \title{Get environment for mocking}
 \usage{
-get_mock_env(.parent = parent.frame(), .quiet = !is_interactive())
+get_mock_env(.parent = parent.frame())
 }
 \arguments{
 \item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions,
 defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}
-
-\item{.quiet}{\verb{[flag]}\cr
-Set to \code{TRUE} to skip message about mocking environment.
-In testthat, the message is never printed if the mocking environment
-is the same as \code{\link[testthat:is_testing]{testthat::testing_package()}}.}
 }
 \description{
-Returns the environment where to update mocked functions.
+Called by default from \code{\link[=with_mock]{with_mock()}} to determine
+the environment where to update mocked functions.
+This function is exported to help troubleshooting.
 }
 \details{
-In testing scenarios, mocked functions must be overwritten
-the environment returned by \code{asNamespace("<package>")}
-must be rechained.
-This is not the same environment as \code{\link[=topenv]{topenv()}}.
+This function works differently depending on
+\code{\link[testthat:is_testing]{testthat::is_testing()}}.
+
+Outside testthat, \code{topenv(.parent)} is returned.
+This was the default for mockr < 0.1.0 and works for many cases.
+
+In testthat, \code{asNamespace("<package>")} for the tested package is returned.
+The tested package is determined via \code{\link[testthat:is_testing]{testthat::testing_package()}}.
+If this is empty (e.g. if a \code{test_that()} block is run in interactive mode),
+this function looks in the search path for packages loaded by
+\code{\link[pkgload:load_all]{pkgload::load_all()}}.
 }
