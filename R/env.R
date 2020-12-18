@@ -100,11 +100,13 @@ create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
 
   # query value visible from .parent to support nesting
-  mock_env <- new.env(parent = parent.env(.parent))
   old_funcs <- mget(names(old_funcs), .parent, inherits = TRUE)
-  old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
 
+  # create and populate mocking environment
+  mock_env <- new.env(parent = parent.env(.parent))
+  old_funcs <- lapply(old_funcs, `environment<-`, mock_env)
   populate_env(mock_env, old_funcs)
+
   mock_env
 }
 
