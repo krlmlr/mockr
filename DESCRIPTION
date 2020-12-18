@@ -20,10 +20,12 @@ Imports:
     withr
 Suggests: 
     covr,
+    fs,
     knitr,
     pkgload,
     rmarkdown,
-    testthat
+    testthat,
+    usethis
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
