@@ -194,4 +194,50 @@ test_that("Can work with resource", {
 
 ## Write wrapper functions
 
+mockr can only mock functions in the current package.
+To substitute implementations of functions in other packages, create wrappers in your package and use these wrappers exclusively.
+
+The example below demonstrates a `d6()` function that is used to get the value of a random die throw.
+Instead of using `runif()` directly, this function uses `my_runif()` which wraps `runif()`.
+
+```{bash runif}
+cat > R/runif.R <<"EOF"
+my_runif <- function(...) {
+  runif(...)
+}
+
+d6 <- function() {
+  trunc(my_runif(1, 0, 6)) + 1
+}
+EOF
+```
+
+```{r}
+pkgload::load_all()
+```
+
+This allows testing the behavior of `d6()`:
+
+```{r test-runif}
+test_that("d6() works correctly", {
+  seq <- c(0.32, 5.4, 5, 2.99)
+  my_runif_mock <- function(...) {
+    on.exit(seq <<- seq[-1])
+    seq[[1]]
+  }
+
+  mockr::local_mock(my_runif = my_runif_mock)
+
+  expect_equal(d6(), 1)
+  expect_equal(d6(), 6)
+  expect_equal(d6(), 6)
+  expect_equal(d6(), 3)
+})
+```
+
+
 ## Mock S3 methods
+
+mockr cannot substitute implementations of S3 methods.
+To substitute methods for a class `"foo"`, implement a subclass and add new methods only for that subclass.
+The pillar package contains [an example](https://github.com/r-lib/pillar/blob/fd6376eca74e9748ed616c49f906529eaee68df9/tests/testthat/helper-unknown-rows.R) where a class with changed behavior for `dim()` and `head()` for the sole purpose of testing.
