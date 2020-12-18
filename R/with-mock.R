@@ -44,7 +44,7 @@ local_mock <- function(...,
                        .defer_env = parent.frame()) {
   dots <- enquos(...)
 
-  check_dots_env_(dots, .parent)
+  check_dots_env(dots, .parent)
 
   if (length(get_code_dots(dots, warn = FALSE)) > 0) {
     abort("All arguments to `local_mock()` must be named.")
@@ -55,7 +55,7 @@ local_mock <- function(...,
     return()
   }
 
-  mock_env <- create_mock_env_(mock_funs, .env = .env, .parent = .parent)
+  mock_env <- create_mock_env(mock_funs, .env = .env, .parent = .parent)
 
   local_mock_env(mock_env, .parent, .defer_env)
   invisible()
@@ -82,10 +82,10 @@ with_mock <- function(...,
                       .env = get_mock_env(.parent)) {
   dots <- enquos(...)
 
-  check_dots_env_(dots, .parent)
+  check_dots_env(dots, .parent)
 
   mock_funs <- get_mock_dots(dots)
-  mock_env <- create_mock_env_(mock_funs, .env = .env, .parent = .parent)
+  mock_env <- create_mock_env(mock_funs, .env = .env, .parent = .parent)
 
   local_mock_env(mock_env, .parent)
   evaluate_code(get_code_dots(dots), .parent)

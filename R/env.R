@@ -58,7 +58,7 @@ get_mock_env <- function(.parent = parent.frame()) {
   top
 }
 
-check_dots_env_ <- function(dots, .parent) {
+check_dots_env <- function(dots, .parent) {
   same <- vlapply(dots, quo_is_env, .parent)
   if (!all(same)) {
     abort("Can only evaluate expressions in the parent environment.")
@@ -70,11 +70,11 @@ quo_is_env <- function(quo, env) {
   identical(quo_env, env) || identical(quo_env, rlang::empty_env())
 }
 
-create_mock_env_ <- function(dots, .env, .parent) {
+create_mock_env <- function(dots, .env, .parent) {
   if (is.character(.env)) .env <- asNamespace(.env)
 
   new_funcs <- extract_new_funcs_(dots, .env)
-  mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
+  mock_env <- create_mock_envwith_old_funcs(new_funcs, .env, .parent)
   populate_env(mock_env, new_funcs)
   mock_env
 }
@@ -87,7 +87,7 @@ extract_new_funcs_ <- function(dots, .env) {
   new_funcs
 }
 
-create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
+create_mock_envwith_old_funcs <- function(new_funcs, .env, .parent) {
   # retrieve all functions not mocked
   old_funcs <- as.list(.env, all.names = TRUE)
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
