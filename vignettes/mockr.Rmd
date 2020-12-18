@@ -24,6 +24,52 @@ library(mockr)
 
 ## General idea
 
+Let's assume a function `access_resource()` that accesses some resource.
+This works in normal circumstances, but not during tests.
+A function `work_with_resource()` works with that resource.
+How can we test `work_with_resource()` without adding too much logic to the implementation?
+
+```{r fun-def}
+access_resource <- function() {
+  message("Trying to access resource...")
+  # For some reason we can't access the resource in our tests.
+  stop("Can't access resource now.")
+}
+
+work_with_resource <- function() {
+  resource <- access_resource()
+  message("Fetched resource: ", resource)
+  invisible(resource)
+}
+```
+
+In our example, calling the worker function gives an error:
+
+```{r example-error, error = TRUE}
+work_with_resource()
+```
+
+We can use `local_mock()` to temporarily replace the implementation of `access_resource()` with one that doesn't throw an error:
+
+```{r example-remedy}
+access_resource_for_test <- function() {
+  # We return a value that's good enough for testing
+  # and can be computed quickly:
+  42
+}
+
+local({
+  # Here, we override the function that raises the error
+  local_mock(access_resource = access_resource_for_test)
+
+  work_with_resource()
+})
+```
+
+The use of `local()` here is required for technical reasons.
+This package is most useful in conjunction with testthat, the remainder of this article will focus on that use case.
+
+
 ## Create demo package
 
 ## Slow function with side effect
