@@ -160,7 +160,9 @@ test_that("Can work with resource", {
     42
   })
 
-  expect_message(expect_equal(work_with_resource_pkg(), 42))
+  expect_message(
+    expect_equal(work_with_resource_pkg(), 42)
+  )
 })
 EOF
 ```
@@ -174,10 +176,22 @@ testthat::test_local(reporter = "location")
 
 ## Run individual tests
 
+mockr is aware of testthat and will work even if executing the tests in the current session.
+This is especially handy if you want to troubleshoot single tests:
+
+```{r test-manually}
+test_that("Can work with resource", {
+  mockr::local_mock(access_resource_pkg = function() {
+    42
+  })
+
+  expect_message(
+    expect_equal(work_with_resource_pkg(), 42)
+  )
+})
+```
 
 
 ## Write wrapper functions
 
 ## Mock S3 methods
-
-## The development phase
