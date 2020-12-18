@@ -72,7 +72,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The goal of mockr is to provide a drop-in replacement for <a href="https://testthat.r-lib.org/reference/with_mock.html"><code>testthat::with_mock()</code></a> which is deprecated in testthat 3.0.0. The only exported function, <code><a href="reference/with_mock.html">with_mock()</a></code>, is modeled closely after the original implementation, but now only allows mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
+<p>The goal of mockr is to provide a drop-in replacement for <a href="https://testthat.r-lib.org/reference/with_mock.html"><code>testthat::with_mock()</code></a> which is deprecated in testthat 3.0.0. The only exported function, <code><a href="reference/local_mock.html">with_mock()</a></code>, is modeled closely after the original implementation, but now only allows mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
 <ol>
 <li>Mocking external functions (in other packages) doesn’t work anymore. This is by design.
 <ul>
