@@ -197,8 +197,7 @@ test_that("mocks can update local variables", {
 test_that("mocks are overridden by local functons", {
   mockee <- function() stop("Still not mocking")
 
-  with_mock(
-    expect_error(mockee(), "Still not mocking"),
-    mockee = function() TRUE
-  )
+  expect_warning(local_mock(mockee = function() TRUE), "evaluation.*mockee")
+
+  expect_true(mockee())
 })

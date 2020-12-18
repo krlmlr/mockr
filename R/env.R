@@ -70,10 +70,27 @@ quo_is_env <- function(quo, env) {
   identical(quo_env, env) || identical(quo_env, rlang::empty_env())
 }
 
-create_mock_env <- function(dots, .env, .parent) {
+create_mock_env <- function(dots, .env, .parent, .defer_env = parent.frame()) {
   if (is.character(.env)) .env <- asNamespace(.env)
 
   new_funcs <- extract_new_funcs(dots, .env)
+
+  # check if functions exist in parent environment, replace those instead
+  eval_env_funcs <- mget(names(new_funcs), .parent, mode = "function", ifnotfound = list(NULL))
+  eval_env_funcs <- eval_env_funcs[!vlapply(eval_env_funcs, is.null)]
+
+  if (length(eval_env_funcs) > 0) {
+    warn(paste0(
+      "Replacing functions in evaluation environment: ",
+      paste0("`", names(eval_env_funcs), "()`", collapse = ", ")
+    ))
+
+    withr::defer(populate_env(.parent, eval_env_funcs), envir = .defer_env)
+    populate_env(.parent, new_funcs[names(eval_env_funcs)])
+
+    new_funcs <- new_funcs[!(names(new_funcs) %in% names(eval_env_funcs))]
+  }
+
   mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
   populate_env(mock_env, new_funcs)
   mock_env

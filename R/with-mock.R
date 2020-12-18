@@ -55,7 +55,9 @@ local_mock <- function(...,
     return()
   }
 
-  mock_env <- create_mock_env(mock_funs, .env = .env, .parent = .parent)
+  mock_env <- create_mock_env(
+    mock_funs, .env = .env, .parent = .parent, .defer_env = .defer_env
+  )
 
   local_mock_env(mock_env, .parent, .defer_env)
   invisible()
