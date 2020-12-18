@@ -34,7 +34,9 @@
 #' }
 #' try(some_other_func())
 #' tester_func()
-with_mock <- function(..., .parent = parent.frame(), .env = get_mock_env(.parent)) {
+with_mock <- function(...,
+                      .parent = parent.frame(),
+                      .env = get_mock_env(.parent, .quiet = TRUE)) {
   dots <- enquos(...)
 
   check_dots_env_(dots, .parent)
