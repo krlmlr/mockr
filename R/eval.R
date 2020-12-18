@@ -4,9 +4,7 @@ evaluate_with_mock_env <- function(code, mock_env, .parent) {
     return(invisible(NULL))
   }
 
-  old_parent <- parent.env(.parent)
-  on.exit(parent.env(.parent) <- old_parent)
-  parent.env(.parent) <- mock_env
+  local_mock_env(mock_env, .parent)
 
   # Evaluate the code
   for (expression in code[-length(code)]) {
