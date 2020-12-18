@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mockr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
       </span>
     </div>
 
@@ -108,6 +108,20 @@
       <small>Source: <a href='https://github.com/krlmlr/mockr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mockr-0109001-2020-12-18" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0.9001">
+<a href="#mockr-0109001-2020-12-18" class="anchor"></a>mockr 0.1.0.9001 (2020-12-18)<small> Unreleased </small>
+</h1>
+<ul>
+<li>
+<code><a href="../reference/local_mock.html">with_mock()</a></code> now requires braces (so that error locations can be reported more accurately) and supports only one expression (<a href='https://github.com/krlmlr/mockr/issues/15'>#15</a>).</li>
+<li>Functions declared in evaluation environments are now also replaced, with a warning (<a href='https://github.com/krlmlr/mockr/issues/5'>#5</a>).</li>
+<li>New <code><a href="../reference/local_mock.html">local_mock()</a></code> (<a href='https://github.com/krlmlr/mockr/issues/6'>#6</a>).</li>
+<li>
+<code><a href="../reference/local_mock.html">with_mock()</a></code> works when running a <code><a href="https://testthat.r-lib.org/reference/test_that.html">testthat::test_that()</a></code> block interactively (<a href='https://github.com/krlmlr/mockr/issues/7'>#7</a>).</li>
+<li>New <code><a href="../reference/get_mock_env.html">get_mock_env()</a></code> to make the mocking environment explicit (<a href='https://github.com/krlmlr/mockr/issues/7'>#7</a>).</li>
+</ul>
+</div>
     <div id="mockr-0109000-2020-12-15" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0.9000">
 <a href="#mockr-0109000-2020-12-15" class="anchor"></a>mockr 0.1.0.9000 (2020-12-15)<small> Unreleased </small>
