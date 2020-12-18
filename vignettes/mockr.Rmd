@@ -1,5 +1,5 @@
 ---
-title: "mockr"
+title: "Mocking with mockr"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{mockr}
@@ -14,6 +14,26 @@ knitr::opts_chunk$set(
 )
 ```
 
+The mockr package helps testing code that relies on functions that are slow, have unintended side effects or access resources that may not be available when testing.
+It allows replacing such functions with deterministic [*mock functions*](https://en.wikipedia.org/wiki/Mock_object).
+This article gives an overview and introduces a few techniques.
+
 ```{r setup}
 library(mockr)
 ```
+
+## General idea
+
+## Create demo package
+
+## Slow function with side effect
+
+## Adding test with mock
+
+## Run all tests in package
+
+## Run individual tests
+
+## Write wrapper functions
+
+## Mock S3 methods
