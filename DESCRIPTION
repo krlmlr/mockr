@@ -4,15 +4,15 @@ Version: 0.1.0.9001
 Date: 2020-12-18
 Authors@R: 
     person(given = "Kirill",
-           family = "Müller",
+           family = "M\u00fcller",
            role = c("aut", "cre"),
            email = "krlmlr+r@mailbox.org")
 Description: Provides a means to mock a package function, i.e.,
     temporarily substitute it for testing. Designed as a drop-in
-    replacement for 'testthat::with_mock()', which may break in R 3.4.0
-    and later.
+    replacement for the now deprecated 'testthat::with_mock()' and
+    'testthat::local_mock()'.
 License: GPL-3
-URL: https://krlmlr.github.io/mockr/, 
+URL: https://krlmlr.github.io/mockr/,
     https://github.com/krlmlr/mockr
 BugReports: https://github.com/krlmlr/mockr/issues
 Imports: 
@@ -26,7 +26,8 @@ Suggests:
     rmarkdown,
     testthat,
     usethis
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
