@@ -73,13 +73,13 @@ quo_is_env <- function(quo, env) {
 create_mock_env <- function(dots, .env, .parent) {
   if (is.character(.env)) .env <- asNamespace(.env)
 
-  new_funcs <- extract_new_funcs_(dots, .env)
+  new_funcs <- extract_new_funcs(dots, .env)
   mock_env <- create_mock_env_with_old_funcs(new_funcs, .env, .parent)
   populate_env(mock_env, new_funcs)
   mock_env
 }
 
-extract_new_funcs_ <- function(dots, .env) {
+extract_new_funcs <- function(dots, .env) {
   mocks <- extract_mocks(dots = dots, env = .env)
   new_func_names <- lapply(mocks, "[[", "name")
   new_funcs <- lapply(mocks, "[[", "new_value")
