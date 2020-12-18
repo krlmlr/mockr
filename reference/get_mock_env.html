@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • mockr</title>
+<title>Get environment for mocking — get_mock_env • mockr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Get environment for mocking — get_mock_env" />
+<meta property="og:description" content="Called by default from with_mock() to determine
+the environment where to update mocked functions.
+This function is exported to help troubleshooting." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -102,48 +105,44 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Get environment for mocking</h1>
+    <small class="dont-index">Source: <a href='https://github.com/krlmlr/mockr/blob/master/R/env.R'><code>R/env.R</code></a></small>
+    <div class="hidden name"><code>get_mock_env.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Called by default from <code><a href='with_mock.html'>with_mock()</a></code> to determine
+the environment where to update mocked functions.
+This function is exported to help troubleshooting.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>get_mock_env</span><span class='op'>(</span>.parent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_mock_env.html">get_mock_env()</a></code> </p>
-        </td>
-        <td><p>Get environment for mocking</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_mock.html">with_mock()</a></code> </p>
-        </td>
-        <td><p>Mock functions in a package.</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.parent</th>
+      <td><p><code>[environment]</code><br /> the environment in which to evaluate the expressions,
+defaults to <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>. Usually doesn't need to be changed.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function works differently depending on
+<code><a href='https://testthat.r-lib.org/reference/is_testing.html'>testthat::is_testing()</a></code>.</p>
+<p>Outside testthat, <code><a href='https://rdrr.io/r/base/ns-topenv.html'>topenv(.parent)</a></code> is returned.
+This was the default for mockr &lt; 0.1.0 and works for many cases.</p>
+<p>In testthat, <code><a href='https://rdrr.io/r/base/ns-internal.html'>asNamespace("&lt;package&gt;")</a></code> for the tested package is returned.
+The tested package is determined via <code><a href='https://testthat.r-lib.org/reference/is_testing.html'>testthat::testing_package()</a></code>.
+If this is empty (e.g. if a <code>test_that()</code> block is run in interactive mode),
+this function looks in the search path for packages loaded by
+<code><a href='https://rdrr.io/pkg/pkgload/man/load_all.html'>pkgload::load_all()</a></code>.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

@@ -120,15 +120,18 @@ slow, have unintended side effects or access resources that may not be
 available when testing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_mock</span><span class='op'>(</span><span class='va'>...</span>, .parent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-topenv.html'>topenv</a></span><span class='op'>(</span><span class='va'>.parent</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>with_mock</span><span class='op'>(</span><span class='va'>...</span>, .parent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .env <span class='op'>=</span> <span class='fu'><a href='get_mock_env.html'>get_mock_env</a></span><span class='op'>(</span><span class='va'>.parent</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p><code>[any]</code><br /> named arguments redefine mocked functions,
-unnamed arguments will be evaluated after mocking the functions</p></td>
+      <td><p><code>[any]</code><br /> Named arguments redefine mocked functions.
+unnamed arguments will be evaluated after mocking the functions.
+Use <code>:=</code> to mock functions that start with a dot
+to avoid potential collision with current or future arguments
+to <code>with_mock()</code>.</p></td>
     </tr>
     <tr>
       <th>.parent</th>
