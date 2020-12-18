@@ -137,10 +137,14 @@ available when testing.</p>
     <tr>
       <th>...</th>
       <td><p><code>[any]</code><br /> Named arguments redefine mocked functions.
-unnamed arguments will be evaluated after mocking the functions.
+An unnamed argument containing code in braces (<code>{}</code>) should be provided
+to <code>with_mock()</code>,
+it will be evaluated after mocking the functions.
 Use <code>:=</code> to mock functions that start with a dot
 to avoid potential collision with current or future arguments
-to <code>with_mock()</code>.</p></td>
+to <code>with_mock()</code> or <code>local_mock()</code>.
+Passing more than one unnamed argument to <code>with_mock()</code>,
+or code that is not inside braces, gives a warning.</p></td>
     </tr>
     <tr>
       <th>.parent</th>
