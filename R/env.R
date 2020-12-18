@@ -42,7 +42,7 @@ get_mock_env <- function(.parent = parent.frame()) {
         ns <- sub("^package:", "", name)
         ns_env <- asNamespace(ns)
 
-        if (exists(".__DEVTOOLS__", out)) {
+        if (exists(".__DEVTOOLS__", ns_env)) {
           return(ns_env)
         }
       }
