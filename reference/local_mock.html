@@ -198,7 +198,9 @@ Otherwise, the implementation is modeled after the original version in the
 <span class='va'>tester_func_with</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'>with_mock</span><span class='op'>(</span>
     some_func <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fl'>42</span>,
-    <span class='fu'>some_other_func</span><span class='op'>(</span><span class='op'>)</span>
+    <span class='op'>{</span>
+      <span class='fu'>some_other_func</span><span class='op'>(</span><span class='op'>)</span>
+    <span class='op'>}</span>
   <span class='op'>)</span>
 <span class='op'>}</span>
 <span class='fu'>tester_func_with</span><span class='op'>(</span><span class='op'>)</span>

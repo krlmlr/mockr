@@ -124,8 +124,8 @@
 <p>We create a package called {mocktest} for demonstration. For this demo, the package is created in a temporary directory. A real project will live somewhere in your home directory. The <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_package()</a></code> function sets up a package project ready for development. The output shows the details of the package created.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mocktest"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Creating '/tmp/RtmpriFAdZ/mocktest/'</span>
-<span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpriFAdZ/mocktest'</span>
+<span class="co">#&gt; ✔ Creating '/tmp/Rtmp7vDSEE/mocktest/'</span>
+<span class="co">#&gt; ✔ Setting active project to '/tmp/Rtmp7vDSEE/mocktest'</span>
 <span class="co">#&gt; ✔ Creating 'R/'</span>
 <span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span>
 <span class="co">#&gt; Package: mocktest</span>
@@ -145,7 +145,7 @@
 <p>In an interactive RStudio session, a new window opens. Users of other environments would change the working directory manually. For this demo, we manually set the active project.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/proj_utils.html">proj_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpriFAdZ/mocktest'</span></code></pre></div>
+<span class="co">#&gt; ✔ Setting active project to '/tmp/Rtmp7vDSEE/mocktest'</span></code></pre></div>
 <p>The infrastructure files and directories that comprise a minimal R package are created:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="op">)</span>
