@@ -1,46 +1,43 @@
 context("Mock")
 
-test_that("direct mocking", {
+test_that("direct mocking via with_mock()", {
   with_mock(
     mockee = function() 42,
     expect_equal(mockee(), 42)
   )
 })
 
-test_that("indirect mocking", {
-  with_mock(
-    mockee = function() 42,
-    expect_equal(mocker(), 42)
-  )
+test_that("direct mocking via local_mock()", {
+  local({
+    local_mock(mockee = function() 42)
+
+    expect_equal(mockee(), 42)
+  })
+
+  expect_error(mockee())
 })
 
-test_that("direct mocking with dot (#4)", {
-  with_mock(
-    .mockee = function() 42,
-    expect_equal(.mockee(), 42)
-  )
+test_that("direct and indirect mocking, also with depth", {
+  local_mock(mockee = function() 42)
+
+  expect_equal(mockee(), 42)
+  expect_equal(mocker(), 42)
+  expect_equal(mockee3(), 42)
 })
 
-test_that("indirect mocking with dot (#4)", {
-  with_mock(
-    .mockee = function() 42,
-    expect_equal(.mocker(), 42)
-  )
+test_that("direct and indirect mocking with dot (#4)", {
+  local_mock(.mockee = function() 42)
+
+  expect_equal(.mockee(), 42)
+  expect_equal(.mocker(), 42)
 })
 
 test_that("infinite depth", {
   call_mockee <- function() mockee()
-  with_mock(
-    mockee = function() 42,
-    expect_equal(call_mockee(), 42)
-  )
-})
 
-test_that("infinite depth in package", {
-  with_mock(
-    mockee = function() 42,
-    expect_equal(mockee3(), 42)
-  )
+  local_mock(mockee = function() 42)
+
+  expect_equal(call_mockee(), 42)
 })
 
 test_that("mocked function is restored on error", {
@@ -51,16 +48,31 @@ test_that("mocked function is restored on error", {
     ),
     "Simulated error"
   )
+
+  expect_error(mockee())
 })
 
 test_that("non-empty mock with return value", {
-  expect_true(with_mock(
-    mockee = function(x, y, ...) list(equal = TRUE, message = "TRUE"),
-    TRUE
-  ))
+  expect_true(
+    with_mock(
+      mockee = function(x, y, ...) list(equal = TRUE, message = "TRUE"),
+      TRUE
+    )
+  )
 })
 
-test_that("nested mock", {
+test_that("nested local_mock()", {
+  local({
+    local_mock(mockee = function() mockee2())
+    local_mock(mockee2 = function() 42)
+    expect_equal(mockee(), 42)
+  })
+
+  expect_error(mockee())
+  expect_error(mockee2())
+})
+
+test_that("nested with_mock()", {
   with_mock(
     mockee = function() mockee2(),
     {
@@ -78,19 +90,23 @@ test_that("nested mock", {
 })
 
 test_that("qualified mock names warn", {
-  expect_warning(with_mock("mockr::mockee" = function() 42, mockee()),
-                 "cannot mock functions defined in other packages")
+  expect_warning(
+    local_mock("mockr::mockee" = function() 42),
+    "cannot mock functions defined in other packages"
+  )
 })
 
 test_that("can't mock non-existing", {
-  expect_error(with_mock(..bogus.. = identity, TRUE), "[.][.]bogus[.][.] not found in environment mockr")
+  expect_error(local_mock(..bogus.. = identity), "[.][.]bogus[.][.] not found in environment mockr")
 })
 
 test_that("can't mock non-function", {
-  expect_error(with_mock(some_symbol = FALSE, TRUE), "some_symbol is not a function in environment mockr")
+  expect_error(local_mock(some_symbol = FALSE), "some_symbol is not a function in environment mockr")
 })
 
 test_that("empty or no-op mock", {
+  expect_warning(local_mock(), "Not mocking anything")
+
   expect_warning(expect_null(with_mock()),
                  "Not (?:mocking|evaluating) anything", all = TRUE)
   expect_warning(expect_true(with_mock(TRUE)),
@@ -99,6 +115,16 @@ test_that("empty or no-op mock", {
                  "Not evaluating anything")
   expect_warning(expect_false(withVisible(with_mock(invisible(5)))$visible),
                  "Not mocking anything")
+})
+
+test_that("multi local_mock()", {
+  local_mock(
+    mockee = function() 1,
+    mockee2 = function() 2
+  )
+  expect_equal(mockee(), 1)
+  expect_equal(mockee2(), 2)
+  expect_equal(mockee3(), 1)
 })
 
 test_that("multi-mock", {
