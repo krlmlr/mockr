@@ -1,0 +1,19 @@
+---
+title: "mockr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mockr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mockr)
+```
