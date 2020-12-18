@@ -1,68 +1,62 @@
 #' Get environment for mocking
 #'
-#' Returns the environment where to update mocked functions.
+#' Called by default from [with_mock()] to determine
+#' the environment where to update mocked functions.
+#' This function is exported to help troubleshooting.
 #'
-#' In testing scenarios, mocked functions must be overwritten
-#' the environment returned by `asNamespace("<package>")`
-#' must be rechained.
-#' This is not the same environment as [topenv()].
+#' This function works differently depending on
+#' [testthat::is_testing()].
+#'
+#' Outside testthat, `topenv(.parent)` is returned.
+#' This was the default for mockr < 0.1.0 and works for many cases.
+#'
+#' In testthat, `asNamespace("<package>")` for the tested package is returned.
+#' The tested package is determined via [testthat::testing_package()].
+#' If this is empty (e.g. if a `test_that()` block is run in interactive mode),
+#' this function looks in the search path for packages loaded by
+#' [pkgload::load_all()].
 #'
 #' @inheritParams with_mock
 #'
-#' @param .quiet `[flag]`\cr
-#'   Set to `TRUE` to skip message about mocking environment.
-#'   In testthat, the message is never printed if the mocking environment
-#'   is the same as [testthat::testing_package()].
-#'
 #' @export
-get_mock_env <- function(.parent = parent.frame(), .quiet = !is_interactive()) {
+get_mock_env <- function(.parent = parent.frame()) {
   top <- topenv(.parent)
+
+  testing <- is_installed("testthat") && testthat::is_testing()
+  if (!testing) {
+    return(top)
+  }
+
+  pkg <- testthat::testing_package()
+  if (pkg != "") {
+    return(asNamespace(pkg))
+  }
+
   env <- parent.env(top)
 
-  out <- NULL
   for (i in 1:1000) {
     name <- attr(env, "name")
 
     if (!is.null(name)) {
       if (grepl("^package:", name)) {
         ns <- sub("^package:", "", name)
-        out <- asNamespace(ns)
+        ns_env <- asNamespace(ns)
 
         if (exists(".__DEVTOOLS__", out)) {
-          break
-        } else {
-          out <- NULL
+          return(ns_env)
         }
-      } else if (grepl("^imports:", name)) {
-        ns <- sub("^imports:", "", name)
-        out <- asNamespace(ns)
-
-        if (is_installed("testthat") && testthat::testing_package() == ns) {
-          .quiet <- TRUE
-        }
-        break
       }
     }
 
     env <- parent.env(env)
     if (identical(env, empty_env())) {
-      out <- top
       break
     }
   }
 
-  if (is.null(out)) {
-    warn("No suitable mocking environment found.")
-    out <- top
-  }
-
-  if (!.quiet) {
-    message(paste0("Mocking environment: ", format(out)))
-  }
-
-  out
+  warn("No package loaded, using `topenv()` as mocking environment.")
+  top
 }
-
 
 check_dots_env_ <- function(dots, .parent) {
   same <- vlapply(dots, quo_is_env, .parent)
