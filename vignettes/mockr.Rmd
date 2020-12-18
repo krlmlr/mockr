@@ -1,0 +1,244 @@
+---
+title: "Mocking with mockr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Mocking with mockr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = (.Platform$OS.type == "windows")
+)
+
+set.seed(20201218)
+```
+
+The mockr package helps testing code that relies on functions that are slow, have unintended side effects or access resources that may not be available when testing.
+It allows replacing such functions with deterministic [*mock functions*](https://en.wikipedia.org/wiki/Mock_object).
+This article gives an overview and introduces a few techniques.
+
+```{r setup}
+library(mockr)
+```
+
+## General idea
+
+Let's assume a function `access_resource()` that accesses some resource.
+This works in normal circumstances, but not during tests.
+A function `work_with_resource()` works with that resource.
+How can we test `work_with_resource()` without adding too much logic to the implementation?
+
+```{r fun-def}
+access_resource <- function() {
+  message("Trying to access resource...")
+  # For some reason we can't access the resource in our tests.
+  stop("Can't access resource now.")
+}
+
+work_with_resource <- function() {
+  resource <- access_resource()
+  message("Fetched resource: ", resource)
+  invisible(resource)
+}
+```
+
+In our example, calling the worker function gives an error:
+
+```{r example-error, error = TRUE}
+work_with_resource()
+```
+
+We can use `local_mock()` to temporarily replace the implementation of `access_resource()` with one that doesn't throw an error:
+
+```{r example-remedy}
+access_resource_for_test <- function() {
+  # We return a value that's good enough for testing
+  # and can be computed quickly:
+  42
+}
+
+local({
+  # Here, we override the function that raises the error
+  local_mock(access_resource = access_resource_for_test)
+
+  work_with_resource()
+})
+```
+
+The use of `local()` here is required for technical reasons.
+This package is most useful in conjunction with testthat, the remainder of this article will focus on that use case.
+
+
+## Create demo package
+
+We create a package called {mocktest} for demonstration.
+For this demo, the package is created in a temporary directory.
+A real project will live somewhere in your home directory.
+The `usethis::create_package()` function sets up a package project ready for development.
+The output shows the details of the package created.
+
+```{r create-package}
+pkg <- usethis::create_package(file.path(tempdir(), "mocktest"))
+```
+
+In an interactive RStudio session, a new window opens.
+Users of other environments would change the working directory manually.
+For this demo, we manually set the active project.
+
+```{r set-focus, include = FALSE}
+wd <- getwd()
+
+knitr::knit_hooks$set(
+  pkg = function(before, options, envir) {
+    if (before) {
+      wd <<- setwd(pkg)
+    } else {
+      setwd(wd)
+    }
+
+    invisible()
+  }
+)
+
+knitr::opts_chunk$set(pkg = TRUE)
+```
+
+```{r pkg-location}
+usethis::proj_set()
+```
+
+The infrastructure files and directories that comprise a minimal R package are created:
+
+```{r dir-tree}
+fs::dir_tree()
+```
+
+## Import function
+
+We copy the functions from the previous example (under different names) into the package.
+Normally we would use a text editor:
+
+```{bash import}
+cat > R/resource.R <<"EOF"
+access_resource_pkg <- function() {
+  message("Trying to access resource...")
+  # For some reason we can't access the resource in our tests.
+  stop("Can't access resource now.")
+}
+
+work_with_resource_pkg <- function() {
+  resource <- access_resource_pkg()
+  message("Fetched resource: ", resource)
+  invisible(resource)
+}
+EOF
+```
+
+Loading the package and calling the function gives the error we have seen before:
+
+```{r run-pkg, error = TRUE}
+pkgload::load_all()
+work_with_resource_pkg()
+```
+
+## Adding test with mock
+
+We create a test that tests `work_with_resource_pkg()`, mocking `access_resource_pkg()`.
+We need to prefix with the package name, because testthat provides its own `testthat::local_mock()` which is now deprecated.
+
+```{r test}
+usethis::use_testthat()
+```
+
+```{bash create-test}
+cat > tests/testthat/test-resource.R <<"EOF"
+test_that("Can work with resource", {
+  mockr::local_mock(access_resource_pkg = function() {
+    42
+  })
+
+  expect_message(
+    expect_equal(work_with_resource_pkg(), 42)
+  )
+})
+EOF
+```
+
+The test succeeds:
+
+```{r error = TRUE}
+testthat::test_local(reporter = "location")
+```
+
+
+## Run individual tests
+
+mockr is aware of testthat and will work even if executing the tests in the current session.
+This is especially handy if you want to troubleshoot single tests:
+
+```{r test-manually}
+test_that("Can work with resource", {
+  mockr::local_mock(access_resource_pkg = function() {
+    42
+  })
+
+  expect_message(
+    expect_equal(work_with_resource_pkg(), 42)
+  )
+})
+```
+
+
+## Write wrapper functions
+
+mockr can only mock functions in the current package.
+To substitute implementations of functions in other packages, create wrappers in your package and use these wrappers exclusively.
+
+The example below demonstrates a `d6()` function that is used to get the value of a random die throw.
+Instead of using `runif()` directly, this function uses `my_runif()` which wraps `runif()`.
+
+```{bash runif}
+cat > R/runif.R <<"EOF"
+my_runif <- function(...) {
+  runif(...)
+}
+
+d6 <- function() {
+  trunc(my_runif(1, 0, 6)) + 1
+}
+EOF
+```
+
+```{r}
+pkgload::load_all()
+```
+
+This allows testing the behavior of `d6()`:
+
+```{r test-runif}
+test_that("d6() works correctly", {
+  seq <- c(0.32, 5.4, 5, 2.99)
+  my_runif_mock <- function(...) {
+    on.exit(seq <<- seq[-1])
+    seq[[1]]
+  }
+
+  mockr::local_mock(my_runif = my_runif_mock)
+
+  expect_equal(d6(), 1)
+  expect_equal(d6(), 6)
+  expect_equal(d6(), 6)
+  expect_equal(d6(), 3)
+})
+```
+
+
+## Mock S3 methods
+
+mockr cannot substitute implementations of S3 methods.
+To substitute methods for a class `"foo"`, implement a subclass and add new methods only for that subclass.
+The pillar package contains [an example](https://github.com/r-lib/pillar/blob/fd6376eca74e9748ed616c49f906529eaee68df9/tests/testthat/helper-unknown-rows.R) where a class with changed behavior for `dim()` and `head()` for the sole purpose of testing.

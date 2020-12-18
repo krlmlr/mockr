@@ -20,8 +20,13 @@ Imports:
     withr
 Suggests: 
     covr,
+    fs,
+    knitr,
     pkgload,
-    testthat
+    rmarkdown,
+    testthat,
+    usethis
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
