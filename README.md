@@ -32,7 +32,7 @@ If you encounter other problems, please [file an issue](https://github.com/krlml
 
 <span class='nv'>tester_func</span> <span class='o'>&lt;-</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='o'>{</span>
   <span class='c'># Here, we override the function that raises the error</span>
-  <span class='nf'><a href='https://krlmlr.github.io/mockr/reference/with_mock.html'>with_mock</a></span><span class='o'>(</span>
+  <span class='nf'><a href='https://krlmlr.github.io/mockr/reference/local_mock.html'>with_mock</a></span><span class='o'>(</span>
     some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>42</span>,
     <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span>
   <span class='o'>)</span>
@@ -42,9 +42,10 @@ If you encounter other problems, please [file an issue](https://github.com/krlml
 <span class='nf'>tester_func</span><span class='o'>(</span><span class='o'>)</span>
 <span class='c'>#&gt; [1] 42</span>
 
-<span class='c'># Mocking doesn't override functions in the same environment by design</span>
-<span class='nf'><a href='https://krlmlr.github.io/mockr/reference/with_mock.html'>with_mock</a></span><span class='o'>(</span>some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>6</span> <span class='o'>*</span> <span class='m'>7</span>, <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span><span class='o'>)</span>
-<span class='c'>#&gt; Error in some_func(): oops</span></pre>
+<span class='c'># Mocking overrides functions in the same environment, with a warning</span>
+<span class='nf'><a href='https://krlmlr.github.io/mockr/reference/local_mock.html'>with_mock</a></span><span class='o'>(</span>some_func <span class='o'>=</span> <span class='kr'>function</span><span class='o'>(</span><span class='o'>)</span> <span class='m'>6</span> <span class='o'>*</span> <span class='m'>7</span>, <span class='nf'>some_other_func</span><span class='o'>(</span><span class='o'>)</span><span class='o'>)</span>
+<span class='c'>#&gt; Warning: Replacing functions in evaluation environment: `some_func()`</span>
+<span class='c'>#&gt; [1] 42</span></pre>
 
 ## Installation
 

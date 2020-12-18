@@ -60,7 +60,7 @@ tester_func <- function() {
 # No error raised
 tester_func()
 
-# Mocking doesn't override functions in the same environment by design
+# Mocking overrides functions in the same environment, with a warning
 with_mock(some_func = function() 6 * 7, some_other_func())
 ```
 
