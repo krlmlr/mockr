@@ -4,6 +4,12 @@ template:
   params:
     bootswatch: flatly # https://bootswatch.com/flatly/
 
+reference:
+  - title: Substituting implementations
+    contents:
+    - local_mock
+    - get_mock_env
+
 authors:
   Kirill Müller:
     href: http://krlmlr.info
