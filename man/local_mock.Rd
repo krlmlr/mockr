@@ -61,8 +61,12 @@ Otherwise, the implementation is modeled after the original version in the
 \examples{
 some_func <- function() stop("oops")
 some_other_func <- function() some_func()
+my_env <- environment()
+
 tester_func <- function() {
-  local_mock(some_func = function() 42)
+  # The default for .env works well most of the time,
+  # unfortunately not in examples
+  local_mock(some_func = function() 42, .env = my_env)
   some_other_func()
 }
 try(some_other_func())
@@ -71,6 +75,7 @@ tester_func()
 tester_func_with <- function() {
   with_mock(
     some_func = function() 42,
+    .env = my_env,
     {
       some_other_func()
     }
