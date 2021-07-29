@@ -60,7 +60,6 @@ This function is exported to help troubleshooting." />
 
 
 
-
   
 
   
@@ -130,7 +129,7 @@ the environment where to update mocked functions.
 This function is exported to help troubleshooting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_mock_env</span><span class='op'>(</span>.parent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>get_mock_env</span><span class='op'>(</span>.parent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,9 +145,9 @@ defaults to <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame(
 
     <p>This function works differently depending on
 <code><a href='https://testthat.r-lib.org/reference/is_testing.html'>testthat::is_testing()</a></code>.</p>
-<p>Outside testthat, <code><a href='https://rdrr.io/r/base/ns-topenv.html'>topenv(.parent)</a></code> is returned.
+<p>Outside testthat, <code>topenv(.parent)</code> is returned.
 This was the default for mockr &lt; 0.1.0 and works for many cases.</p>
-<p>In testthat, <code><a href='https://rdrr.io/r/base/ns-internal.html'>asNamespace("&lt;package&gt;")</a></code> for the tested package is returned.
+<p>In testthat, <code>asNamespace("&lt;package&gt;")</code> for the tested package is returned.
 The tested package is determined via <code><a href='https://testthat.r-lib.org/reference/is_testing.html'>testthat::testing_package()</a></code>.
 If this is empty (e.g. if a <code>test_that()</code> block is run in interactive mode),
 this function looks in the search path for packages loaded by

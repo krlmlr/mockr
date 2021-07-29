@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://krlmlr.github.io/mockr/404.html</loc>
+  </url>
+  <url>
+    <loc>https://krlmlr.github.io/mockr/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://krlmlr.github.io/mockr/articles/mockr.html</loc>
+  </url>
+  <url>
+    <loc>https://krlmlr.github.io/mockr/authors.html</loc>
+  </url>
+  <url>
     <loc>https://krlmlr.github.io/mockr/index.html</loc>
   </url>
   <url>
+    <loc>https://krlmlr.github.io/mockr/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://krlmlr.github.io/mockr/reference/get_mock_env.html</loc>
+  </url>
+  <url>
+    <loc>https://krlmlr.github.io/mockr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://krlmlr.github.io/mockr/reference/local_mock.html</loc>
   </url>
   <url>
     <loc>https://krlmlr.github.io/mockr/reference/mockr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/mockr/articles/mockr.html</loc>
   </url>
 </urlset>
