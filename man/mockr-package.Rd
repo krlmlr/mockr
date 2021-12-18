@@ -6,10 +6,7 @@
 \alias{mockr-package}
 \title{mockr: Mocking in R}
 \description{
-Provides a means to mock a package function, i.e.,
-    temporarily substitute it for testing. Designed as a drop-in
-    replacement for the now deprecated 'testthat::with_mock()' and
-    'testthat::local_mock()'.
+Provides a means to mock a package function, i.e., temporarily substitute it for testing. Designed as a drop-in replacement for the now deprecated 'testthat::with_mock()' and 'testthat::local_mock()'.
 }
 \seealso{
 Useful links:
