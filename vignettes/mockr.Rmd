@@ -81,8 +81,17 @@ A real project will live somewhere in your home directory.
 The `usethis::create_package()` function sets up a package project ready for development.
 The output shows the details of the package created.
 
+```{r work-around-desc-bug-1, echo = FALSE}
+# Fixed in https://github.com/r-lib/desc/commit/daece0e5816e17a461969489bfdda2d50b4f5fe5, requires desc > 1.4.0
+desc_options <- options(cli.num_colors = 1)
+```
+
 ```{r create-package}
 pkg <- usethis::create_package(file.path(tempdir(), "mocktest"))
+```
+
+```{r work-around-desc-bug-2, echo = FALSE}
+options(desc_options)
 ```
 
 In an interactive RStudio session, a new window opens.
