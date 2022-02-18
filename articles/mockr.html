@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mockr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9001</span>
       </span>
     </div>
 
@@ -66,13 +66,13 @@
 
       
 
-      </header><script src="mockr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Mocking with mockr</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/krlmlr/mockr/blob/master/vignettes/mockr.Rmd" class="external-link"><code>vignettes/mockr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/krlmlr/mockr/blob/HEAD/vignettes/mockr.Rmd" class="external-link"><code>vignettes/mockr.Rmd</code></a></small>
       <div class="hidden name"><code>mockr.Rmd</code></div>
 
     </div>
@@ -82,9 +82,9 @@
 <p>The mockr package helps testing code that relies on functions that are slow, have unintended side effects or access resources that may not be available when testing. It allows replacing such functions with deterministic <a href="https://en.wikipedia.org/wiki/Mock_object" class="external-link"><em>mock functions</em></a>. This article gives an overview and introduces a few techniques.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://krlmlr.github.io/mockr/">mockr</a></span><span class="op">)</span></code></pre></div>
-<div id="general-idea" class="section level2">
-<h2 class="hasAnchor">
-<a href="#general-idea" class="anchor" aria-hidden="true"></a>General idea</h2>
+<div class="section level2">
+<h2 id="general-idea">General idea<a class="anchor" aria-label="anchor" href="#general-idea"></a>
+</h2>
 <p>Let’s assume a function <code>access_resource()</code> that accesses some resource. This works in normal circumstances, but not during tests. A function <code>work_with_resource()</code> works with that resource. How can we test <code>work_with_resource()</code> without adding too much logic to the implementation?</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">access_resource</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
@@ -120,14 +120,14 @@
 <span class="co">#&gt; Fetched resource: 42</span></code></pre></div>
 <p>The use of <code><a href="https://rdrr.io/r/base/eval.html" class="external-link">local()</a></code> here is required for technical reasons. This package is most useful in conjunction with testthat, the remainder of this article will focus on that use case.</p>
 </div>
-<div id="create-demo-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-demo-package" class="anchor" aria-hidden="true"></a>Create demo package</h2>
+<div class="section level2">
+<h2 id="create-demo-package">Create demo package<a class="anchor" aria-label="anchor" href="#create-demo-package"></a>
+</h2>
 <p>We create a package called {mocktest} for demonstration. For this demo, the package is created in a temporary directory. A real project will live somewhere in your home directory. The <code><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">usethis::create_package()</a></code> function sets up a package project ready for development. The output shows the details of the package created.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">create_package</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mocktest"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Creating '/tmp/Rtmp4oyLZR/mocktest/'</span>
-<span class="co">#&gt; ✔ Setting active project to '/tmp/Rtmp4oyLZR/mocktest'</span>
+<span class="co">#&gt; ✔ Creating '/tmp/RtmpzqEWmB/mocktest/'</span>
+<span class="co">#&gt; ✔ Setting active project to '/tmp/RtmpzqEWmB/mocktest'</span>
 <span class="co">#&gt; ✔ Creating 'R/'</span>
 <span class="co">#&gt; ✔ Writing 'DESCRIPTION'</span>
 <span class="co">#&gt; Package: mocktest</span>
@@ -139,7 +139,6 @@
 <span class="co">#&gt; License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a</span>
 <span class="co">#&gt;     license</span>
 <span class="co">#&gt; Encoding: UTF-8</span>
-<span class="co">#&gt; LazyData: true</span>
 <span class="co">#&gt; Roxygen: list(markdown = TRUE)</span>
 <span class="co">#&gt; RoxygenNote: 7.0.0</span>
 <span class="co">#&gt; ✔ Writing 'NAMESPACE'</span>
@@ -147,62 +146,62 @@
 <p>In an interactive RStudio session, a new window opens. Users of other environments would change the working directory manually. For this demo, we manually set the active project.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/proj_utils.html" class="external-link">proj_set</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Setting active project to '/tmp/Rtmp4oyLZR/mocktest'</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Setting active project to <span style="color: #0000BB;">'/tmp/RtmpzqEWmB/mocktest'</span></span></code></pre></div>
 <p>The infrastructure files and directories that comprise a minimal R package are created:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; .</span>
+<code class="sourceCode R"><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">.</span></span>
 <span class="co">#&gt; ├── DESCRIPTION</span>
 <span class="co">#&gt; ├── NAMESPACE</span>
-<span class="co">#&gt; └── R</span></code></pre></div>
+<span class="co">#&gt; └── <span style="color: #0000BB; font-weight: bold;">R</span></span></code></pre></div>
 </div>
-<div id="import-function" class="section level2">
-<h2 class="hasAnchor">
-<a href="#import-function" class="anchor" aria-hidden="true"></a>Import function</h2>
+<div class="section level2">
+<h2 id="import-function">Import function<a class="anchor" aria-label="anchor" href="#import-function"></a>
+</h2>
 <p>We copy the functions from the previous example (under different names) into the package. Normally we would use a text editor:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> R/resource.R <span class="op">&lt;&lt;"EOF"</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>access_resource_pkg &lt;- function() {</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  message("Trying to access resource...")</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  # For some reason we can't access the resource in our tests.</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  stop("Can't access resource now.")</span>
-<span id="cb8-6"><a href="#cb8-6"></a>}</span>
-<span id="cb8-7"><a href="#cb8-7"></a></span>
-<span id="cb8-8"><a href="#cb8-8"></a>work_with_resource_pkg &lt;- function() {</span>
-<span id="cb8-9"><a href="#cb8-9"></a>  resource &lt;- access_resource_pkg()</span>
-<span id="cb8-10"><a href="#cb8-10"></a>  message("Fetched resource: ", resource)</span>
-<span id="cb8-11"><a href="#cb8-11"></a>  invisible(resource)</span>
-<span id="cb8-12"><a href="#cb8-12"></a>}</span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="op">EOF</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> R/resource.R <span class="op">&lt;&lt;"EOF"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">access_resource_pkg &lt;- function() {</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">  message("Trying to access resource...")</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">  # For some reason we can't access the resource in our tests.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">  stop("Can't access resource now.")</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">work_with_resource_pkg &lt;- function() {</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">  resource &lt;- access_resource_pkg()</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">  message("Fetched resource: ", resource)</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="st">  invisible(resource)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
 <p>Loading the package and calling the function gives the error we have seen before:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ℹ Loading mocktest</span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Loading <span style="color: #0000BB;">mocktest</span></span>
 <span class="fu">work_with_resource_pkg</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Trying to access resource...</span>
 <span class="co">#&gt; Error in access_resource_pkg(): Can't access resource now.</span></code></pre></div>
 </div>
-<div id="adding-test-with-mock" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-test-with-mock" class="anchor" aria-hidden="true"></a>Adding test with mock</h2>
+<div class="section level2">
+<h2 id="adding-test-with-mock">Adding test with mock<a class="anchor" aria-label="anchor" href="#adding-test-with-mock"></a>
+</h2>
 <p>We create a test that tests <code>work_with_resource_pkg()</code>, mocking <code>access_resource_pkg()</code>. We need to prefix with the package name, because testthat provides its own <code><a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link">testthat::local_mock()</a></code> which is now deprecated.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Adding 'testthat' to Suggests field in DESCRIPTION</span>
-<span class="co">#&gt; ✔ Setting Config/testthat/edition field in DESCRIPTION to '3'</span>
-<span class="co">#&gt; ✔ Creating 'tests/testthat/'</span>
-<span class="co">#&gt; ✔ Writing 'tests/testthat.R'</span>
-<span class="co">#&gt; • Call `use_test()` to initialize a basic test file and open it for editing.</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> tests/testthat/test-resource.R <span class="op">&lt;&lt;"EOF"</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>test_that("Can work with resource", {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  mockr::local_mock(access_resource_pkg = function() {</span>
-<span id="cb11-4"><a href="#cb11-4"></a>    42</span>
-<span id="cb11-5"><a href="#cb11-5"></a>  })</span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a>  expect_message(</span>
-<span id="cb11-8"><a href="#cb11-8"></a>    expect_equal(work_with_resource_pkg(), 42)</span>
-<span id="cb11-9"><a href="#cb11-9"></a>  )</span>
-<span id="cb11-10"><a href="#cb11-10"></a>})</span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="op">EOF</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">'testthat'</span> to <span style="color: #00BB00;">Suggests</span> field in DESCRIPTION</span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Setting <span style="color: #00BB00;">Config/testthat/edition</span> field in DESCRIPTION to <span style="color: #0000BB;">'3'</span></span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Creating <span style="color: #0000BB;">'tests/testthat/'</span></span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Writing <span style="color: #0000BB;">'tests/testthat.R'</span></span>
+<span class="co">#&gt; <span style="color: #BB0000;">•</span> Call <span style="color: #555555;">`use_test()`</span> to initialize a basic test file and open it for editing.</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> tests/testthat/test-resource.R <span class="op">&lt;&lt;"EOF"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">test_that("Can work with resource", {</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">  mockr::local_mock(access_resource_pkg = function() {</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">    42</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">  })</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">  expect_message(</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">    expect_equal(work_with_resource_pkg(), 42)</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">  )</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">})</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
 <p>The test succeeds:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">test_local</a></span><span class="op">(</span>reporter <span class="op">=</span> <span class="st">"location"</span><span class="op">)</span>
@@ -216,9 +215,9 @@
 <span class="co">#&gt;   test-resource.R:6:3 [success]</span>
 <span class="co">#&gt; End test: Can work with resource</span></code></pre></div>
 </div>
-<div id="run-individual-tests" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-individual-tests" class="anchor" aria-hidden="true"></a>Run individual tests</h2>
+<div class="section level2">
+<h2 id="run-individual-tests">Run individual tests<a class="anchor" aria-label="anchor" href="#run-individual-tests"></a>
+</h2>
 <p>mockr is aware of testthat and will work even if executing the tests in the current session. This is especially handy if you want to troubleshoot single tests:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"Can work with resource"</span>, <span class="op">{</span>
@@ -230,25 +229,25 @@
     <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">work_with_resource_pkg</span><span class="op">(</span><span class="op">)</span>, <span class="fl">42</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #00BB00;">Test passed</span> 🥳</span></code></pre></div>
 </div>
-<div id="write-wrapper-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#write-wrapper-functions" class="anchor" aria-hidden="true"></a>Write wrapper functions</h2>
+<div class="section level2">
+<h2 id="write-wrapper-functions">Write wrapper functions<a class="anchor" aria-label="anchor" href="#write-wrapper-functions"></a>
+</h2>
 <p>mockr can only mock functions in the current package. To substitute implementations of functions in other packages, create wrappers in your package and use these wrappers exclusively.</p>
 <p>The example below demonstrates a <code>d6()</code> function that is used to get the value of a random die throw. Instead of using <code><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif()</a></code> directly, this function uses <code>my_runif()</code> which wraps <code><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif()</a></code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> R/runif.R <span class="op">&lt;&lt;"EOF"</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>my_runif &lt;- function(...) {</span>
-<span id="cb14-3"><a href="#cb14-3"></a>  runif(...)</span>
-<span id="cb14-4"><a href="#cb14-4"></a>}</span>
-<span id="cb14-5"><a href="#cb14-5"></a></span>
-<span id="cb14-6"><a href="#cb14-6"></a>d6 &lt;- function() {</span>
-<span id="cb14-7"><a href="#cb14-7"></a>  trunc(my_runif(1, 0, 6)) + 1</span>
-<span id="cb14-8"><a href="#cb14-8"></a>}</span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="op">EOF</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> R/runif.R <span class="op">&lt;&lt;"EOF"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">my_runif &lt;- function(...) {</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">  runif(...)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">d6 &lt;- function() {</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">  trunc(my_runif(1, 0, 6)) + 1</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ℹ Loading mocktest</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Loading <span style="color: #0000BB;">mocktest</span></span></code></pre></div>
 <p>This allows testing the behavior of <code>d6()</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"d6() works correctly"</span>, <span class="op">{</span>
@@ -265,11 +264,11 @@
   <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">d6</span><span class="op">(</span><span class="op">)</span>, <span class="fl">6</span><span class="op">)</span>
   <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">d6</span><span class="op">(</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #00BB00;">Test passed</span> 😸</span></code></pre></div>
 </div>
-<div id="mock-s3-methods" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mock-s3-methods" class="anchor" aria-hidden="true"></a>Mock S3 methods</h2>
+<div class="section level2">
+<h2 id="mock-s3-methods">Mock S3 methods<a class="anchor" aria-label="anchor" href="#mock-s3-methods"></a>
+</h2>
 <p>mockr cannot substitute implementations of S3 methods. To substitute methods for a class <code>"foo"</code>, implement a subclass and add new methods only for that subclass. The pillar package contains <a href="https://github.com/r-lib/pillar/blob/fd6376eca74e9748ed616c49f906529eaee68df9/tests/testthat/helper-unknown-rows.R" class="external-link">an example</a> where a class with changed behavior for <code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> for the sole purpose of testing.</p>
 </div>
   </div>
@@ -286,12 +285,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://krlmlr.info" class="external-link external-link">Kirill Müller</a>.</p>
+<p>Developed by <a href="https://krlmlr.info" class="external-link">Kirill Müller</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
       </footer>
