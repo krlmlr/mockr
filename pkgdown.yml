@@ -3,7 +3,7 @@ pkgdown: 2.0.2.9000
 pkgdown_sha: ae7363faac9040a473a54fb3d770decdfb8dfec1
 articles:
   mockr: mockr.html
-last_built: 2022-02-18T09:37Z
+last_built: 2022-02-19T05:04Z
 urls:
   reference: https://krlmlr.github.io/mockr/reference
   article: https://krlmlr.github.io/mockr/articles
