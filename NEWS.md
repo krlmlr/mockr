@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mockr 0.2.0 (2022-04-02)
+
+- Same as previous version.
+
+
 # mockr 0.1.0.9002 (2022-04-02)
 
 - Add "Getting started" vignette (#22).
