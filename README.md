@@ -4,7 +4,7 @@
 
 <!-- badges: start -->
 
-[![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions) [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr) [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/main/graph/badge.svg)](https://codecov.io/gh/krlmlr/mockr?branch=main)
+[![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions) [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr) [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/krlmlr/mockr?branch=main)
 
 <!-- badges: end -->
 
