@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mockr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -51,33 +51,31 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.0.9000" id="mockr-0209000-2022-04-02">mockr 0.2.0.9000 (2022-04-02)<a class="anchor" aria-label="anchor" href="#mockr-0209000-2022-04-02"></a></h2>
-<ul><li>Same as previous version.</li>
-</ul></div>
-    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="mockr-020-2022-04-02">mockr 0.2.0 (2022-04-02)<a class="anchor" aria-label="anchor" href="#mockr-020-2022-04-02"></a></h2>
-<ul><li>Same as previous version.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.0.9002" id="mockr-0109002-2022-04-02">mockr 0.1.0.9002 (2022-04-02)<a class="anchor" aria-label="anchor" href="#mockr-0109002-2022-04-02"></a></h2>
-<ul><li>Add “Getting started” vignette (<a href="https://github.com/krlmlr/mockr/issues/22" class="external-link">#22</a>).</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.0.9001" id="mockr-0109001-2020-12-18">mockr 0.1.0.9001 (2020-12-18)<a class="anchor" aria-label="anchor" href="#mockr-0109001-2020-12-18"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-2-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h3>
 <ul><li>
 <code><a href="../reference/local_mock.html">with_mock()</a></code> now requires braces (so that error locations can be reported more accurately) and supports only one expression (<a href="https://github.com/krlmlr/mockr/issues/15" class="external-link">#15</a>).</li>
-<li>Functions declared in evaluation environments are now also replaced, with a warning (<a href="https://github.com/krlmlr/mockr/issues/5" class="external-link">#5</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="features-0-2-0">Features<a class="anchor" aria-label="anchor" href="#features-0-2-0"></a></h3>
+<ul><li>Functions declared in evaluation environments are now also replaced, with a warning (<a href="https://github.com/krlmlr/mockr/issues/5" class="external-link">#5</a>).</li>
 <li>New <code><a href="../reference/local_mock.html">local_mock()</a></code> (<a href="https://github.com/krlmlr/mockr/issues/6" class="external-link">#6</a>).</li>
 <li>
 <code><a href="../reference/local_mock.html">with_mock()</a></code> works when running a <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code> block interactively (<a href="https://github.com/krlmlr/mockr/issues/7" class="external-link">#7</a>).</li>
 <li>New <code><a href="../reference/get_mock_env.html">get_mock_env()</a></code> to make the mocking environment explicit (<a href="https://github.com/krlmlr/mockr/issues/7" class="external-link">#7</a>).</li>
+<li>Functions that start with a dot can be mocked (<a href="https://github.com/krlmlr/mockr/issues/3" class="external-link">#3</a>, <a href="https://github.com/krlmlr/mockr/issues/4" class="external-link">#4</a>).</li>
 </ul></div>
-    <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.0.9000" id="mockr-0109000-2020-12-15">mockr 0.1.0.9000 (2020-12-15)<a class="anchor" aria-label="anchor" href="#mockr-0109000-2020-12-15"></a></h2>
-<ul><li>Functions that start with a dot can be mocked (<a href="https://github.com/krlmlr/mockr/issues/3" class="external-link">#3</a>, <a href="https://github.com/krlmlr/mockr/issues/4" class="external-link">#4</a>).</li>
-<li>Switch to rlang (<a href="https://github.com/krlmlr/mockr/issues/13" class="external-link">#13</a>).</li>
+<div class="section level3">
+<h3 id="documentation-0-2-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-2-0"></a></h3>
+<ul><li>Add “Getting started” vignette (<a href="https://github.com/krlmlr/mockr/issues/22" class="external-link">#22</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-0-2-0">Internal<a class="anchor" aria-label="anchor" href="#internal-0-2-0"></a></h3>
+<ul><li>Switch to rlang (<a href="https://github.com/krlmlr/mockr/issues/13" class="external-link">#13</a>).</li>
 <li>Switch to GitHub Actions (<a href="https://github.com/krlmlr/mockr/issues/10" class="external-link">#10</a>).</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1" id="mockr-01-2017-04-28">mockr 0.1 (2017-04-28)<small>2017-04-29</small><a class="anchor" aria-label="anchor" href="#mockr-01-2017-04-28"></a></h2>
 <p>Initial CRAN release.</p>
