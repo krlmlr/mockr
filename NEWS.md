@@ -1,3 +1,10 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# mockr 0.1.0.9002 (2022-04-02)
+
+- Add "Getting started" vignette (#22).
+
+
 # mockr 0.1.0.9001 (2020-12-18)
 
 - `with_mock()` now requires braces (so that error locations can be reported more accurately) and supports only one expression (#15).

@@ -1,7 +1,7 @@
 Package: mockr
 Title: Mocking in R
-Version: 0.1.0.9001
-Date: 2020-12-18
+Version: 0.1.0.9002
+Date: 2022-04-02
 Authors@R: 
     person(given = "Kirill",
            family = "M\u00fcller",
