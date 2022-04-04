@@ -1,16 +1,16 @@
-Submitting a same-version update with a better package description.
+mockr 0.2.0
 
-## Test environments
-* local Ubuntu install, R 3.3.3
-* ubuntu 12.04 (on travis-ci), R-devel, R 3.4.0, and R 3.3.3
-* win-builder (devel and release)
+## Cran Repository Policy
+
+- [x] Reviewed CRP last edited 2022-02-08.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+- [x] Checked locally, R 4.1.2
+- [x] Checked on CI system, R 4.1.3
+- [x] Checked on win-builder, R devel
 
-* This is a new release.
+## Current CRAN check results
 
-## Reverse dependencies
-
-This is a new release, so there are no reverse dependencies.
+- [x] Checked on 2022-04-02, problems found: https://cran.r-project.org/web/checks/check_results_mockr.html
+- [x] NOTE: r-devel-linux-x86_64-debian-clang, r-devel-linux-x86_64-debian-gcc, r-devel-linux-x86_64-fedora-clang, r-devel-linux-x86_64-fedora-gcc, r-devel-windows-x86_64-new-UL, r-patched-linux-x86_64, r-release-linux-x86_64, r-release-macos-arm64, r-release-macos-x86_64, r-release-windows-ix86+x86_64: Fixed

@@ -7,26 +7,25 @@
 
 # mockr 0.2.0 (2022-04-02)
 
-- Same as previous version.
-
-
-# mockr 0.1.0.9002 (2022-04-02)
-
-- Add "Getting started" vignette (#22).
-
-
-# mockr 0.1.0.9001 (2020-12-18)
+## Breaking changes
 
 - `with_mock()` now requires braces (so that error locations can be reported more accurately) and supports only one expression (#15).
+
+## Features
+
 - Functions declared in evaluation environments are now also replaced, with a warning (#5).
 - New `local_mock()` (#6).
 - `with_mock()` works when running a `testthat::test_that()` block interactively (#7).
 - New `get_mock_env()` to make the mocking environment explicit (#7).
-
-
-# mockr 0.1.0.9000 (2020-12-15)
-
 - Functions that start with a dot can be mocked (#3, #4).
+
+
+## Documentation
+
+- Add "Getting started" vignette (#22).
+
+## Internal
+
 - Switch to rlang (#13).
 - Switch to GitHub Actions (#10).
 
