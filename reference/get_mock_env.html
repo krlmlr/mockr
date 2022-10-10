@@ -60,7 +60,7 @@ This function is exported to help troubleshooting.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_mock_env</span><span class="op">(</span>.parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_mock_env</span><span class="op">(</span>.parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -68,6 +68,7 @@ This function is exported to help troubleshooting.</p>
     <dl><dt>.parent</dt>
 <dd><p><code>[environment]</code><br> the environment in which to evaluate the expressions,
 defaults to <code><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame()</a></code>. Usually doesn't need to be changed.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -79,7 +80,7 @@ This was the default for mockr &lt; 0.1.0 and works for many cases.</p>
 The tested package is determined via <code><a href="https://testthat.r-lib.org/reference/is_testing.html" class="external-link">testthat::testing_package()</a></code>.
 If this is empty (e.g. if a <code>test_that()</code> block is run in interactive mode),
 this function looks in the search path for packages loaded by
-<code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">pkgload::load_all()</a></code>.</p>
+<code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code>.</p>
     </div>
 
   </div>
@@ -94,7 +95,7 @@ this function looks in the search path for packages loaded by
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
