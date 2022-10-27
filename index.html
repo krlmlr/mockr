@@ -75,14 +75,20 @@
 <div class="page-header"><h1 id="mockr">mockr<a class="anchor" aria-label="anchor" href="#mockr"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end --><p>The goal of mockr is to provide a drop-in replacement for <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::local_mock()</code></a> and <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::with_mock()</code></a> which is deprecated in testthat 3.0.0. The functions <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::local_mock()</code></a> and <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::with_mock()</code></a> are modeled closely after the original implementation, but now only allow mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
+
+<!-- badges: end -->
+<p>The goal of mockr is to provide a drop-in replacement for <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::local_mock()</code></a> and <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::with_mock()</code></a> which is deprecated in testthat 3.0.0. The functions <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::local_mock()</code></a> and <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::with_mock()</code></a> are modeled closely after the original implementation, but now only allow mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
 <ol style="list-style-type: decimal">
-<li>Mocking external functions (in other packages) doesn’t work anymore. This is by design.<ul>
+<li>Mocking external functions (in other packages) doesn’t work anymore. This is by design.
+<ul>
 <li>If you need to mock an external function, write a wrapper.</li>
 <li>If that external function is called by third-party code, you’ll need to perhaps mock that third-party code, or look for a different way of implementing this test or organizing your code.</li>
 </ul>
 </li>
-<li>You cannot refer to functions in your package via <code>your.package::</code> or <code>your.package:::</code> anymore.<ul><li>Remove the <code>your.package:::</code>, your code and tests should run just fine without that.</li></ul>
+<li>You cannot refer to functions in your package via <code>your.package::</code> or <code>your.package:::</code> anymore.
+<ul>
+<li>Remove the <code>your.package:::</code>, your code and tests should run just fine without that.</li>
+</ul>
 </li>
 </ol>
 <p>If you encounter other problems, please <a href="https://github.com/krlmlr/mockr/issues" class="external-link">file an issue</a>.</p>
