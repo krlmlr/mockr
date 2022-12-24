@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mockr 0.2.0.9001 (2022-12-24)
+
+- Harmonize yaml formatting.
+
+- Revert changes to matrix section.
+
+- Merge pull request #30 from krlmlr/cran-0.2.0.
+
+
+
+
 # mockr 0.2.0.9000 (2022-04-02)
 
 - Same as previous version.
