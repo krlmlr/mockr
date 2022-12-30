@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mockr 0.2.0.9002 (2022-12-30)
+
+- Internal changes only.
+
+
 # mockr 0.2.0.9001 (2022-12-24)
 
 - Harmonize yaml formatting.
