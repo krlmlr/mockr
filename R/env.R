@@ -110,8 +110,17 @@ create_mock_env_with_old_funcs <- function(new_funcs, .env, .parent) {
   old_funcs <- old_funcs[vlapply(old_funcs, is.function)]
   old_funcs <- old_funcs[!(names(old_funcs) %in% names(new_funcs))]
 
-  # query value visible from .parent to support nesting
-  old_funcs <- mget(names(old_funcs), .parent, inherits = TRUE)
+  # Query value visible from .parent to support nesting.
+  # For some reason, this doesn't always exist (#29).
+  for (i in seq_along(old_funcs)) {
+    old_funcs[[i]] <- get0(
+      names(old_funcs)[[i]],
+      .parent,
+      mode = "function",
+      inherits = TRUE,
+      ifnotfound = old_funcs[[i]]
+    )
+  }
 
   # create and populate mocking environment
   mock_env <- new.env(parent = parent.env(.parent))
