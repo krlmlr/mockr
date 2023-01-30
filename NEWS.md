@@ -1,5 +1,21 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mockr 0.2.1 (2023-01-30)
+
+- Same as previous version.
+
+
+# mockr 0.2.0.9003 (2023-01-30)
+
+## Bug fixes
+
+- More careful querying of functions to be mocked, to avoid errors for `.onLoad()` when testing interactively (#29).
+
+## Chore
+
+- Change maintainer e-mail address.
+
+
 # mockr 0.2.0.9002 (2022-12-30)
 
 - Internal changes only.
