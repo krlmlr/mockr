@@ -18,11 +18,6 @@
 
 # mockr 0.2.1 (2023-01-30)
 
-- Same as previous version.
-
-
-# mockr 0.2.0.9003 (2023-01-30)
-
 ## Bug fixes
 
 - More careful querying of functions to be mocked, to avoid errors for `.onLoad()` when testing interactively (#29).
@@ -30,27 +25,6 @@
 ## Chore
 
 - Change maintainer e-mail address.
-
-
-# mockr 0.2.0.9002 (2022-12-30)
-
-- Internal changes only.
-
-
-# mockr 0.2.0.9001 (2022-12-24)
-
-- Harmonize yaml formatting.
-
-- Revert changes to matrix section.
-
-- Merge pull request #30 from krlmlr/cran-0.2.0.
-
-
-
-
-# mockr 0.2.0.9000 (2022-04-02)
-
-- Same as previous version.
 
 
 # mockr 0.2.0 (2022-04-02)

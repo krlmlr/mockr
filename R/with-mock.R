@@ -31,7 +31,7 @@
 #'   This argument is passed on as `envir` to [withr::defer()].
 #' @return
 #'   `local_mock()` returns `NULL`, invisibly.
-#' @references Suraj Gupta (2012): [How R Searches And Finds Stuff](http://blog.obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
+#' @references Suraj Gupta (2012): [How R Searches And Finds Stuff](https://blog.thatbuthow.com/how-r-searches-and-finds-stuff/)
 #' @export
 #' @examples
 #' some_func <- function() stop("oops")

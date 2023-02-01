@@ -84,5 +84,5 @@ tester_func_with <- function() {
 tester_func_with()
 }
 \references{
-Suraj Gupta (2012): \href{http://blog.obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/}{How R Searches And Finds Stuff}
+Suraj Gupta (2012): \href{https://blog.thatbuthow.com/how-r-searches-and-finds-stuff/}{How R Searches And Finds Stuff}
 }
