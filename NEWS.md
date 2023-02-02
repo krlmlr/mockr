@@ -1,5 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mockr 0.2.1.9002 (2023-02-02)
+
+- Merged cran-0.2.1 into main.
+
+
+
 # mockr 0.2.1.9001 (2023-01-30)
 
 - Same as previous version.
