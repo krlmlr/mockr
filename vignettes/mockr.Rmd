@@ -11,7 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  error = (.Platform$OS.type == "windows")
+  error = (.Platform$OS.type == "windows"),
+  eval = requireNamespace("usethis", quietly = TRUE)
 )
 
 set.seed(20201218)
