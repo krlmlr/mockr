@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9006 (2023-10-10)
+
+## Bug fixes
+
+- Avoid rendering vignette with usethis missing.
+
+
 # mockr 0.2.1.9005 (2023-10-09)
 
 - Internal changes only.
