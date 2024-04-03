@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9007 (2024-04-03)
+
+- Internal changes only.
+
+
 # mockr 0.2.1.9006 (2023-10-10)
 
 ## Bug fixes
