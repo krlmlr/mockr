@@ -1,10 +1,9 @@
 pandoc: 3.1.11
 pkgdown: 2.0.9.9000
-pkgdown_sha: e808ba8b012399653ec6139e10460a1b73854d52
+pkgdown_sha: 34ee692e4ce10c8abfb863cc782da771838558f7
 articles:
   mockr: mockr.html
-last_built: 2024-05-27T02:36Z
+last_built: 2024-06-27T06:18Z
 urls:
   reference: https://krlmlr.github.io/mockr/reference
   article: https://krlmlr.github.io/mockr/articles
-
