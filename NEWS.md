@@ -1,5 +1,24 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9009 (2024-06-28)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/krlmlr/mockr/actions/runs/9691618001
+
+## Continuous integration
+
+- Avoid checking bashisms on Windows.
+
+- Better commit message.
+
+- Bump versions, better default, consume custom matrix.
+
+- Recent updates.
+
+
 # mockr 0.2.1.9008 (2024-05-28)
 
 ## Chore
