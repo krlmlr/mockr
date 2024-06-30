@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9010 (2024-06-30)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/krlmlr/mockr/actions/runs/9727974092
+
+
 # mockr 0.2.1.9009 (2024-06-28)
 
 ## Chore
