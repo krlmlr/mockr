@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9011 (2024-07-02)
+
+## Continuous integration
+
+- Fix on Windows, tweak lock workflow.
+
+
 # mockr 0.2.1.9010 (2024-06-30)
 
 ## Chore
