@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9013 (2024-08-06)
+
+## Continuous integration
+
+- Inline action.
+
+
 # mockr 0.2.1.9012 (2024-08-02)
 
 ## Chore
