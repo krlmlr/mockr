@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9014 (2024-08-10)
+
+## Continuous integration
+
+- Use v2 instead of master.
+
+
 # mockr 0.2.1.9013 (2024-08-06)
 
 ## Continuous integration
