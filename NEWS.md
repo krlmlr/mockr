@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9018 (2024-10-28)
+
+## Continuous integration
+
+  - Use pkgdown branch (#34).
+    
+      - ci: Use pkgdown branch
+    
+      - ci: Updates from duckdb
+    
+      - ci: Trigger run
+
+
 # mockr 0.2.1.9017 (2024-09-15)
 
 ## Continuous integration
