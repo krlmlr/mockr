@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9020 (2024-11-18)
+
+## Continuous integration
+
+  - Use stable pak (#36).
+
+
 # mockr 0.2.1.9019 (2024-11-11)
 
 ## Continuous integration
