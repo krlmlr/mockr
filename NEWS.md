@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9021 (2024-11-22)
+
+## Continuous integration
+
+  - Correctly detect branch protection (#37).
+
+
 # mockr 0.2.1.9020 (2024-11-18)
 
 ## Continuous integration
