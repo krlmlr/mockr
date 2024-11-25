@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9022 (2024-11-25)
+
+## Continuous integration
+
+- Need to install R on Ubuntu 24.04 (#40).
+
+- Use Ubuntu 24.04 and styler PR (#38).
+
+## Uncategorized
+
+- PLACEHOLDER https://github.com/krlmlr/mockr/pull/16 (#16).
+
+
 # mockr 0.2.1.9021 (2024-11-22)
 
 ## Continuous integration
