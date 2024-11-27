@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9024 (2024-11-27)
+
+## Continuous integration
+
+- Explicit permissions (#42).
+
+
 # mockr 0.2.1.9023 (2024-11-26)
 
 ## Continuous integration
