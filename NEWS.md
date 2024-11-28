@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9025 (2024-11-28)
+
+## Continuous integration
+
+- Ignore errors when removing pkg-config on macOS (#43).
+
+
 # mockr 0.2.1.9024 (2024-11-27)
 
 ## Continuous integration
