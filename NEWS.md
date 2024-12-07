@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9026 (2024-12-07)
+
+## Continuous integration
+
+- Use larger retry count for lock-threads workflow (#44).
+
+
 # mockr 0.2.1.9025 (2024-11-28)
 
 ## Continuous integration
