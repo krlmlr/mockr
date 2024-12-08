@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9027 (2024-12-08)
+
+## Continuous integration
+
+- Fetch tags for fledge workflow to avoid unnecessary NEWS entries (#45).
+
+
 # mockr 0.2.1.9026 (2024-12-07)
 
 ## Continuous integration
