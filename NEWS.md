@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9028 (2024-12-09)
+
+## Continuous integration
+
+- Avoid failure in fledge workflow if no changes (#46).
+
+
 # mockr 0.2.1.9027 (2024-12-08)
 
 ## Continuous integration
