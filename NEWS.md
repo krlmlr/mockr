@@ -1,5 +1,38 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.1.9029 (2025-05-01)
+
+## Chore
+
+- IDE.
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/krlmlr/mockr/actions/runs/14636209657
+
+## Continuous integration
+
+- Permissions, better tests for missing suggests, lints (#54).
+
+- Only fail covr builds if token is given (#53).
+
+- Always use `_R_CHECK_FORCE_SUGGESTS_=false` (#52).
+
+- Correct installation of xml2 (#51).
+
+- Explain (#50).
+
+- Add xml2 for covr, print testthat results (#49).
+
+- Fix (#48).
+
+- Sync (#47).
+
+## Documentation
+
+- Relicense as MIT.
+
+
 # mockr 0.2.1.9028 (2024-12-09)
 
 ## Continuous integration
