@@ -1,16 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
-# mockr 0.2.1.9900 (2025-05-01)
+# mockr 0.2.2 (2025-05-01)
+
+## License
+
+- Relicense as MIT.
 
 ## Bug fixes
 
 - Avoid rendering vignette with usethis missing.
 
 - More careful querying of functions to be mocked, to avoid errors for `.onLoad()` when testing interactively (#29).
-
-## License
-
-- Relicense as MIT.
 
 
 # mockr 0.2.1 (2023-01-30)

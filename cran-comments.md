@@ -1,4 +1,4 @@
-mockr 0.2.1.9900
+mockr 0.2.2
 
 ## Cran Repository Policy
 
