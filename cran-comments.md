@@ -1,5 +1,5 @@
-mockr 0.2.1
+mockr 0.2.1.9900
 
-## Current CRAN check results
+## Cran Repository Policy
 
-- [x] Checked on 2023-01-30, no problems found.
+- [x] Reviewed CRP last edited 2024-08-27.
