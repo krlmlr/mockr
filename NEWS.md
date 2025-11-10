@@ -1,5 +1,26 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9000 (2025-11-10)
+
+## Chore
+
+- Auto-update from GitHub Actions (#63).
+
+## Continuous integration
+
+- Use workflows for fledge (#66).
+
+- Sync (#65).
+
+- Use reviewdog for external PRs (#64).
+
+- Cleanup and fix macOS (#62).
+
+- Format with air, check detritus, better handling of `extra-packages` (#61).
+
+- Enhance permissions for workflow (#60).
+
+
 # mockr 0.2.2 (2025-05-01)
 
 ## License
