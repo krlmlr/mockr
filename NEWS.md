@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9001 (2025-11-12)
+
+## Continuous integration
+
+- Fix reviewdog and add commenting workflow (#68).
+
+
 # mockr 0.2.2.9000 (2025-11-10)
 
 ## Chore
