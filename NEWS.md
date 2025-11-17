@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9002 (2025-11-17)
+
+## Continuous integration
+
+- Install binaries from r-universe for dev workflow (#70).
+
+
 # mockr 0.2.2.9001 (2025-11-12)
 
 ## Continuous integration
