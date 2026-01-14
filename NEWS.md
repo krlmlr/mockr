@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9003 (2026-01-14)
+
+## Continuous integration
+
+- Fix comment (#74).
+
+- Tweaks (#73).
+
+- Test all R versions on branches that start with cran- (#72).
+
+
 # mockr 0.2.2.9002 (2025-11-17)
 
 ## Continuous integration
