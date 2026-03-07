@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Kirill Müller \email{kirill@cynkra.com}
 
+Authors:
+\itemize{
+  \item Kirill Müller \email{kirill@cynkra.com}
+}
+
 }
 \keyword{internal}
