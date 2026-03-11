@@ -23,7 +23,7 @@ Outside testthat, \code{topenv(.parent)} is returned.
 This was the default for mockr < 0.1.0 and works for many cases.
 
 In testthat, \code{asNamespace("<package>")} for the tested package is returned.
-The tested package is determined via \code{\link[testthat:is_testing]{testthat::testing_package()}}.
+The tested package is determined via \code{\link[testthat:testing_package]{testthat::testing_package()}}.
 If this is empty (e.g. if a \code{test_that()} block is run in interactive mode),
 this function looks in the search path for packages loaded by
 \code{\link[pkgload:load_all]{pkgload::load_all()}}.
