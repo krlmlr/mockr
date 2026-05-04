@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9006 (2026-05-04)
+
+## Chore
+
+- Auto-update from GitHub Actions (#80).
+
+
 # mockr 0.2.2.9005 (2026-03-12)
 
 ## Chore
