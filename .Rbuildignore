@@ -9,3 +9,4 @@
 ^CODE_OF_CONDUCT\.md$
 ^CRAN-SUBMISSION$
 ^LICENSE\.md$
+^\.ccache$
