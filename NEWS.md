@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9009 (2026-05-16)
+
+## fledge
+
+- Bump version to 0.2.2.9008 (#86).
+
+
 # mockr 0.2.2.9008 (2026-05-14)
 
 ## Chore
