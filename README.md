@@ -10,7 +10,7 @@
 
 [![rcc](https://github.com/krlmlr/mockr/workflows/rcc/badge.svg)](https://github.com/krlmlr/mockr/actions)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/mockr)](https://cran.r-project.org/package=mockr)
-[![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/krlmlr/mockr?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/graph/badge.svg)](https://app.codecov.io/gh/krlmlr/mockr/tree/main)
 <!-- badges: end -->
 
 The goal of mockr is to provide a drop-in replacement for `testthat::local_mock()` and `testthat::with_mock()` which is deprecated in testthat 3.0.0.
