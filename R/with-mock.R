@@ -4,9 +4,7 @@
 #' This is useful for testing code that relies on functions that are slow,
 #' have unintended side effects or access resources that may not be available when testing.
 #'
-#' This works by adding a shadow environment as a parent of the environment
-#' in which the expressions are evaluated.  Everything happens at the R level,
-#' but only functions in your own package can be mocked.
+#' This works by adding a shadow environment as a parent of the environment in which the expressions are evaluated.  Everything happens at the R level, but only functions in your own package can be mocked.
 #' Otherwise, the implementation is modeled after the original version in the `testthat` package, which is now deprecated.
 #'
 #' @param ... `[any]`\cr Named arguments redefine mocked functions.
