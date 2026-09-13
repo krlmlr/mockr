@@ -76,6 +76,13 @@ Install from CRAN via
 install.packages("mockr")
 ```
 
+Or the development version from GitHub with:
+
+```r
+# install.packages("pak")
+pak::pak("krlmlr/mockr")
+```
+
 ---
 
 ## Code of Conduct
