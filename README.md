@@ -13,15 +13,19 @@
 [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/graph/badge.svg)](https://app.codecov.io/gh/krlmlr/mockr/tree/main)
 <!-- badges: end -->
 
-The goal of mockr is to provide a drop-in replacement for `testthat::local_mock()` and `testthat::with_mock()` which is deprecated in testthat 3.0.0.
-The functions `mockr::local_mock()` and `mockr::with_mock()` are modeled closely after the original implementation, but now only allow mocking functions in the package under test.
-In contrast to the original implementation, no fiddling
-with R's internals is needed, and the implementation plays well with byte-compiled code.
+The goal of mockr is to provide a drop-in replacement for `testthat::local_mock()` and `testthat::with_mock()`
+which is deprecated in testthat 3.0.0.
+The functions `mockr::local_mock()` and `mockr::with_mock()` are modeled closely after the original implementation,
+but now only allow mocking functions in the package under test.
+In contrast to the original implementation, no fiddling with R's internals is needed,
+and the implementation plays well with byte-compiled code.
 There are some caveats, though:
 
-1.  Mocking external functions (in other packages) doesn't work anymore. This is by design.
+1.  Mocking external functions (in other packages) doesn't work anymore.
+    This is by design.
     - If you need to mock an external function, write a wrapper.
-    - If that external function is called by third-party code, you'll need to perhaps mock that third-party code, or look for a different way of implementing this test or organizing your code.
+    - If that external function is called by third-party code, you'll need to perhaps mock that third-party code,
+      or look for a different way of implementing this test or organizing your code.
 2.  You cannot refer to functions in your package via `your.package::` or `your.package:::` anymore.
     - Remove the `your.package:::`, your code and tests should run just fine without that.
 
@@ -79,4 +83,5 @@ pak::pak("krlmlr/mockr")
 
 ## Code of Conduct
 
-Please note that the mockr project is released with a [Contributor Code of Conduct](https://krlmlr.github.io/mockr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the mockr project is released with a [Contributor Code of Conduct](https://krlmlr.github.io/mockr/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
