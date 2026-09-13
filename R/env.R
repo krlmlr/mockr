@@ -1,17 +1,17 @@
 #' Get environment for mocking
 #'
 #' Called by default from [with_mock()] to determine the environment where to update mocked functions.
-#' This function is exported to help troubleshooting.
+#'  This function is exported to help troubleshooting.
 #'
 #' This function works differently depending on [testthat::is_testing()].
 #'
 #' Outside testthat, `topenv(.parent)` is returned.
-#' This was the default for mockr < 0.1.0 and works for many cases.
+#'  This was the default for mockr < 0.1.0 and works for many cases.
 #'
 #' In testthat, `asNamespace("<package>")` for the tested package is returned.
-#' The tested package is determined via [testthat::testing_package()].
-#' If this is empty (e.g. if a `test_that()` block is run in interactive mode),
-#' this function looks in the search path for packages loaded by [pkgload::load_all()].
+#'  The tested package is determined via [testthat::testing_package()].
+#'  If this is empty (e.g. if a `test_that()` block is run in interactive mode),
+#'  this function looks in the search path for packages loaded by [pkgload::load_all()].
 #'
 #' @inheritParams with_mock
 #'

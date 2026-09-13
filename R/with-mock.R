@@ -1,28 +1,28 @@
 #' Mock functions in a package
 #'
 #' `local_mock()` temporarily substitutes implementations of package functions.
-#' This is useful for testing code that relies on functions that are slow,
-#' have unintended side effects or access resources that may not be available when testing.
+#'  This is useful for testing code that relies on functions that are slow,
+#'  have unintended side effects or access resources that may not be available when testing.
 #'
 #' This works by adding a shadow environment as a parent of the environment in which the expressions are evaluated.  Everything happens at the R level, but only functions in your own package can be mocked.
-#' Otherwise, the implementation is modeled after the original version in the `testthat` package, which is now deprecated.
+#'  Otherwise, the implementation is modeled after the original version in the `testthat` package, which is now deprecated.
 #'
 #' @param ... `[any]`\cr Named arguments redefine mocked functions.
-#'   An unnamed argument containing code in braces (`{}`) should be provided to `with_mock()`,
-#'   it will be evaluated after mocking the functions.
-#'   Use `:=` to mock functions that start with a dot
-#'   to avoid potential collision with current or future arguments to `with_mock()` or `local_mock()`.
-#'   Passing more than one unnamed argument to `with_mock()`, or code that is not inside braces, gives a warning.
+#'  An unnamed argument containing code in braces (`{}`) should be provided to `with_mock()`,
+#'  it will be evaluated after mocking the functions.
+#'  Use `:=` to mock functions that start with a dot
+#'  to avoid potential collision with current or future arguments to `with_mock()` or `local_mock()`.
+#'  Passing more than one unnamed argument to `with_mock()`, or code that is not inside braces, gives a warning.
 #' @param .parent `[environment]`\cr the environment in which to evaluate the expressions, defaults to [parent.frame()].
-#'   Usually doesn't need to be changed.
+#'  Usually doesn't need to be changed.
 #' @param .env `[environment]`\cr the environment in which to patch the functions, defaults to [topenv()].
-#'   Usually doesn't need to be changed.
+#'  Usually doesn't need to be changed.
 #' @param .defer_env `[environment]`\cr
-#'   Attach exit handlers to this environment.
-#'   Typically, this should be either the current environment or a parent frame (accessed through [parent.frame()]).
-#'   This argument is passed on as `envir` to [withr::defer()].
+#'  Attach exit handlers to this environment.
+#'  Typically, this should be either the current environment or a parent frame (accessed through [parent.frame()]).
+#'  This argument is passed on as `envir` to [withr::defer()].
 #' @return
-#'   `local_mock()` returns `NULL`, invisibly.
+#' `local_mock()` returns `NULL`, invisibly.
 #' @references Suraj Gupta (2012): [How R Searches And Finds Stuff](https://blog.thatbuthow.com/how-r-searches-and-finds-stuff/)
 #' @export
 #' @examples
@@ -64,10 +64,10 @@ local_mock <- function(...,
 }
 
 #' @description
-#'   `with_mock()` substitutes, runs code locally, and restores in one go.
+#' `with_mock()` substitutes, runs code locally, and restores in one go.
 #' @return
-#'   `with_mock()` returns the result of the last unnamed argument.
-#'   Visibility is preserved.
+#' `with_mock()` returns the result of the last unnamed argument.
+#'  Visibility is preserved.
 #' @rdname local_mock
 #' @export
 #' @examples
