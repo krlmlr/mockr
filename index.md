@@ -31,6 +31,28 @@ There are some caveats, though:
 
 If you encounter other problems, please [file an issue](https://github.com/krlmlr/mockr/issues).
 
+## Goals and non-goals
+
+mockr aims to:
+
+- Provide a drop-in replacement for `testthat::local_mock()` and `testthat::with_mock()`,
+  modeled closely after the original implementation.
+- Temporarily substitute functions in the package under test,
+  for testing code that relies on functions that are slow,
+  have unintended side effects or access resources that may not be available when testing.
+- Do all of that at the R level, without fiddling with R's internals, and play well with byte-compiled code.
+- Be aware of testthat,
+  so that a `test_that()` block mocks correctly even when you execute it on its own in the current session.
+
+It is explicitly not trying to:
+
+- Mock external functions in other packages:
+  this is by design, write a wrapper in your own package and use that wrapper exclusively.
+- Substitute implementations of S3 methods:
+  implement a subclass and add new methods only for that subclass instead.
+- Support calls to your own functions qualified with `your.package::` or `your.package:::`:
+  remove the prefix, your code and tests should run just fine without it.
+
 ## Example
 
 ``` r
