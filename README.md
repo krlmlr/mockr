@@ -56,6 +56,12 @@ Install from CRAN via
 <pre class='chroma'>
 <span class='nf'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='o'>(</span><span class='s'>"mockr"</span><span class='o'>)</span></pre>
 
+Or the development version from GitHub with:
+
+<pre class='chroma'>
+<span class='c'># install.packages("pak")</span>
+<span class='nf'>pak</span><span class='nf'>::</span><span class='nf'><a href='https://pak.r-lib.org/reference/pak.html'>pak</a></span><span class='o'>(</span><span class='s'>"krlmlr/mockr"</span><span class='o'>)</span></pre>
+
 ------------------------------------------------------------------------
 
 ## Code of Conduct
