@@ -16,40 +16,40 @@ with_mock(..., .parent = parent.frame(), .env = get_mock_env(.parent))
 }
 \arguments{
 \item{...}{\verb{[any]}\cr Named arguments redefine mocked functions.
-An unnamed argument containing code in braces (\code{{}}) should be provided to \code{with_mock()},
+ An unnamed argument containing code in braces (\code{{}}) should be provided to \code{with_mock()},
 it will be evaluated after mocking the functions.
-Use \verb{:=} to mock functions that start with a dot
+ Use \verb{:=} to mock functions that start with a dot
 to avoid potential collision with current or future arguments to \code{with_mock()} or \code{local_mock()}.
-Passing more than one unnamed argument to \code{with_mock()}, or code that is not inside braces, gives a warning.}
+ Passing more than one unnamed argument to \code{with_mock()}, or code that is not inside braces, gives a warning.}
 
 \item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions, defaults to \code{\link[=parent.frame]{parent.frame()}}.
-Usually doesn't need to be changed.}
+ Usually doesn't need to be changed.}
 
 \item{.env}{\verb{[environment]}\cr the environment in which to patch the functions, defaults to \code{\link[=topenv]{topenv()}}.
-Usually doesn't need to be changed.}
+ Usually doesn't need to be changed.}
 
 \item{.defer_env}{\verb{[environment]}\cr
 Attach exit handlers to this environment.
-Typically, this should be either the current environment or a parent frame (accessed through \code{\link[=parent.frame]{parent.frame()}}).
-This argument is passed on as \code{envir} to \code{\link[withr:defer]{withr::defer()}}.}
+ Typically, this should be either the current environment or a parent frame (accessed through \code{\link[=parent.frame]{parent.frame()}}).
+ This argument is passed on as \code{envir} to \code{\link[withr:defer]{withr::defer()}}.}
 }
 \value{
 \code{local_mock()} returns \code{NULL}, invisibly.
 
 \code{with_mock()} returns the result of the last unnamed argument.
-Visibility is preserved.
+ Visibility is preserved.
 }
 \description{
 \code{local_mock()} temporarily substitutes implementations of package functions.
-This is useful for testing code that relies on functions that are slow,
+ This is useful for testing code that relies on functions that are slow,
 have unintended side effects or access resources that may not be available when testing.
 
 \code{with_mock()} substitutes, runs code locally, and restores in one go.
 }
 \details{
 This works by adding a shadow environment as a parent of the environment in which the expressions are evaluated.
-Everything happens at the R level, but only functions in your own package can be mocked.
-Otherwise, the implementation is modeled after the original version in the \code{testthat} package, which is now deprecated.
+ Everything happens at the R level, but only functions in your own package can be mocked.
+ Otherwise, the implementation is modeled after the original version in the \code{testthat} package, which is now deprecated.
 }
 \examples{
 some_func <- function() stop("oops")
