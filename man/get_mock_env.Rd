@@ -7,17 +7,15 @@
 get_mock_env(.parent = parent.frame())
 }
 \arguments{
-\item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions,
-defaults to \code{\link[=parent.frame]{parent.frame()}}. Usually doesn't need to be changed.}
+\item{.parent}{\verb{[environment]}\cr the environment in which to evaluate the expressions, defaults to \code{\link[=parent.frame]{parent.frame()}}.
+Usually doesn't need to be changed.}
 }
 \description{
-Called by default from \code{\link[=with_mock]{with_mock()}} to determine
-the environment where to update mocked functions.
+Called by default from \code{\link[=with_mock]{with_mock()}} to determine the environment where to update mocked functions.
 This function is exported to help troubleshooting.
 }
 \details{
-This function works differently depending on
-\code{\link[testthat:is_testing]{testthat::is_testing()}}.
+This function works differently depending on \code{\link[testthat:is_testing]{testthat::is_testing()}}.
 
 Outside testthat, \code{topenv(.parent)} is returned.
 This was the default for mockr < 0.1.0 and works for many cases.
@@ -25,6 +23,5 @@ This was the default for mockr < 0.1.0 and works for many cases.
 In testthat, \code{asNamespace("<package>")} for the tested package is returned.
 The tested package is determined via \code{\link[testthat:testing_package]{testthat::testing_package()}}.
 If this is empty (e.g. if a \code{test_that()} block is run in interactive mode),
-this function looks in the search path for packages loaded by
-\code{\link[pkgload:load_all]{pkgload::load_all()}}.
+this function looks in the search path for packages loaded by \code{\link[pkgload:load_all]{pkgload::load_all()}}.
 }
