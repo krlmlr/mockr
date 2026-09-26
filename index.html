@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mockr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2.9020</span>
       </span>
     </div>
 
@@ -72,8 +72,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<!-- badges: end -->
-<p>The goal of mockr is to provide a drop-in replacement for <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::local_mock()</code></a> and <a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link"><code>testthat::with_mock()</code></a> which is deprecated in testthat 3.0.0. The functions <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::local_mock()</code></a> and <a href="https://krlmlr.github.io/mockr/reference/local_mock.html"><code>mockr::with_mock()</code></a> are modeled closely after the original implementation, but now only allow mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
+<p>The goal of mockr is to provide a drop-in replacement for <code><a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link">testthat::local_mock()</a></code> and <code><a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link">testthat::with_mock()</a></code> which is deprecated in testthat 3.0.0. The functions <code><a href="reference/local_mock.html">mockr::local_mock()</a></code> and <code><a href="reference/local_mock.html">mockr::with_mock()</a></code> are modeled closely after the original implementation, but now only allow mocking functions in the package under test. In contrast to the original implementation, no fiddling with R’s internals is needed, and the implementation plays well with byte-compiled code. There are some caveats, though:</p>
 <ol style="list-style-type: decimal">
 <li>Mocking external functions (in other packages) doesn’t work anymore. This is by design.
 <ul>
@@ -91,47 +90,46 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<pre class="chroma">
-<span class="kr"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="o">(</span><span class="nv"><a href="https://krlmlr.github.io/mockr/">mockr</a></span><span class="o">)</span>
-
-<span class="nv">access_resource</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nf"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="o">(</span><span class="s">"Trying to access resource..."</span><span class="o">)</span>
-  <span class="c"># For some reason we can't access the resource in our tests.</span>
-  <span class="kr"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="o">(</span><span class="s">"Can't access resource now."</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="nv">work_with_resource</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nv">resource</span> <span class="o">&lt;-</span> <span class="nf">access_resource</span><span class="o">(</span><span class="o">)</span>
-  <span class="nf"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="o">(</span><span class="s">"Fetched resource: "</span>, <span class="nv">resource</span><span class="o">)</span>
-  <span class="nf"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="o">(</span><span class="nv">resource</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="c"># Calling this function gives an error</span>
-<span class="nf">work_with_resource</span><span class="o">(</span><span class="o">)</span>
-<span class="c">#&gt; Trying to access resource...</span>
-<span class="c">#&gt; Error in access_resource(): Can't access resource now.</span>
-
-<span class="nf"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="o">(</span><span class="o">{</span>
-  <span class="c"># Here, we override the function that raises the error</span>
-  <span class="nf"><a href="https://krlmlr.github.io/mockr/reference/local_mock.html">local_mock</a></span><span class="o">(</span>access_resource <span class="o">=</span> <span class="kr">function</span><span class="o">(</span><span class="o">)</span> <span class="m">42</span><span class="o">)</span>
-
-  <span class="c"># No error raised</span>
-  <span class="nf">work_with_resource</span><span class="o">(</span><span class="o">)</span>
-<span class="o">}</span><span class="o">)</span>
-<span class="c">#&gt; Fetched resource: 42</span></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://krlmlr.github.io/mockr/">mockr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">access_resource</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Trying to access resource..."</span><span class="op">)</span></span>
+<span>  <span class="co"># For some reason we can't access the resource in our tests.</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Can't access resource now."</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">work_with_resource</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">resource</span> <span class="op">&lt;-</span> <span class="fu">access_resource</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Fetched resource: "</span>, <span class="va">resource</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">resource</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Calling this function gives an error</span></span>
+<span><span class="fu">work_with_resource</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Trying to access resource...</span></span>
+<span><span class="co">#&gt; Error in `access_resource()`:</span></span>
+<span><span class="co">#&gt; ! Can't access resource now.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="co"># Here, we override the function that raises the error</span></span>
+<span>  <span class="fu"><a href="reference/local_mock.html">local_mock</a></span><span class="op">(</span>access_resource <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">42</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># No error raised</span></span>
+<span>  <span class="fu">work_with_resource</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Fetched resource: 42</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install from CRAN via</p>
-<pre class="chroma">
-<span class="nf"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="o">(</span><span class="s">"mockr"</span><span class="o">)</span></pre>
-<hr>
-</div>
-<div class="section level2">
-<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
-</h2>
-<p>Please note that the mockr project is released with a <a href="https://krlmlr.github.io/mockr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mockr"</span><span class="op">)</span></span></code></pre></div>
+<p>Or the development version from GitHub with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"krlmlr/mockr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -181,7 +179,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/krlmlr/mockr/actions" class="external-link"><img src="https://github.com/krlmlr/mockr/workflows/rcc/badge.svg" alt="rcc"></a></li>
 <li><a href="https://cran.r-project.org/package=mockr" class="external-link"><img src="https://www.r-pkg.org/badges/version/mockr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://app.codecov.io/gh/krlmlr/mockr?branch=main" class="external-link"><img src="https://codecov.io/gh/krlmlr/mockr/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://app.codecov.io/gh/krlmlr/mockr/tree/main" class="external-link"><img src="https://codecov.io/gh/krlmlr/mockr/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
