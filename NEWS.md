@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9021 (2026-09-26)
+
+## Documentation
+
+- Break lines at meaning boundaries (#104).
+
+- Drop the branch from the coverage badge (#102).
+
+- Harmonize README and pkgdown front page rendering (#103).
+
+- Add a `pak::pak()` development install to the README (#100).
+
+
 # mockr 0.2.2.9020 (2026-09-13)
 
 ## Chore
