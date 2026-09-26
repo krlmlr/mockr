@@ -12,9 +12,9 @@
 [![Codecov test coverage](https://codecov.io/gh/krlmlr/mockr/graph/badge.svg)](https://app.codecov.io/gh/krlmlr/mockr/tree/main)
 <!-- badges: end -->
 
-The goal of mockr is to provide a drop-in replacement for `testthat::local_mock()` and `testthat::with_mock()`
+The goal of mockr is to provide a drop-in replacement for [`testthat::local_mock()`](https://rdrr.io/pkg/testthat/man/with_mock.html) and [`testthat::with_mock()`](https://rdrr.io/pkg/testthat/man/with_mock.html)
 which is deprecated in testthat 3.0.0.
-The functions `mockr::local_mock()` and `mockr::with_mock()` are modeled closely after the original implementation,
+The functions [`mockr::local_mock()`](https://krlmlr.github.io/mockr/reference/local_mock.html) and [`mockr::with_mock()`](https://krlmlr.github.io/mockr/reference/local_mock.html) are modeled closely after the original implementation,
 but now only allow mocking functions in the package under test.
 In contrast to the original implementation, no fiddling with R's internals is needed,
 and the implementation plays well with byte-compiled code.
