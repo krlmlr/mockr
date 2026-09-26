@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 set.seed(20201218)
 ```
 
-The mockr package helps testing code that relies on functions that are slow, have unintended side effects or access resources that may not be available when testing.
+The mockr package helps testing code that relies on functions that are slow,
+have unintended side effects or access resources that may not be available when testing.
 It allows replacing such functions with deterministic [*mock functions*](https://en.wikipedia.org/wiki/Mock_object).
 This article gives an overview and introduces a few techniques.
 
@@ -251,4 +252,5 @@ test_that("d6() works correctly", {
 
 mockr cannot substitute implementations of S3 methods.
 To substitute methods for a class `"foo"`, implement a subclass and add new methods only for that subclass.
-The pillar package contains [an example](https://github.com/r-lib/pillar/blob/fd6376eca74e9748ed616c49f906529eaee68df9/tests/testthat/helper-unknown-rows.R) where a class with changed behavior for `dim()` and `head()` for the sole purpose of testing.
+The pillar package contains [an example](https://github.com/r-lib/pillar/blob/fd6376eca74e9748ed616c49f906529eaee68df9/tests/testthat/helper-unknown-rows.R)
+where a class with changed behavior for `dim()` and `head()` for the sole purpose of testing.

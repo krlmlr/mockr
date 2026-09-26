@@ -12,8 +12,7 @@ evaluate_code <- function(code, .parent) {
 
   # Evaluate the code
   for (expression in code[-length(code)]) {
-    # Can't use eval_tidy(), otherwise changes to variables
-    # are not visible outside
+    # Can't use eval_tidy(), otherwise changes to variables are not visible outside
     # https://github.com/r-lib/rlang/issues/1077
     eval(quo_get_expr(expression), .parent)
   }
