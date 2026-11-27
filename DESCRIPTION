@@ -1,6 +1,6 @@
 Package: mockr
 Title: Mocking in R
-Version: 0.2.2.9025
+Version: 0.2.2.9026
 Date: 2026-11-27
 Authors@R: 
     person("Kirill", "Müller", , "kirill@cynkra.com", role = c("aut", "cre"))
