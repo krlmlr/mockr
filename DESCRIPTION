@@ -3,17 +3,13 @@ Title: Mocking in R
 Version: 0.2.2.9025
 Date: 2026-11-27
 Authors@R: 
-    person(given = "Kirill",
-           family = "M\u00fcller",
-           role = c("aut", "cre"),
-           email = "kirill@cynkra.com")
+    person("Kirill", "Müller", , "kirill@cynkra.com", role = c("aut", "cre"))
 Description: Provides a means to mock a package function, i.e.,
     temporarily substitute it for testing. Designed as a drop-in
     replacement for the now deprecated 'testthat::with_mock()' and
     'testthat::local_mock()'.
 License: MIT + file LICENSE
-URL: https://krlmlr.github.io/mockr/,
-    https://github.com/krlmlr/mockr
+URL: https://krlmlr.github.io/mockr/, https://github.com/krlmlr/mockr
 BugReports: https://github.com/krlmlr/mockr/issues
 Imports: 
     rlang,
@@ -28,6 +24,6 @@ Suggests:
     usethis
 VignetteBuilder: 
     knitr
+Config/roxygen2/version: 8.1.1.9000
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.1.1.9000
