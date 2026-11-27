@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mockr 0.2.2.9026 (2026-11-27)
+
+## Chore
+
+- Declare every vignette builder in DESCRIPTION (#120).
+
+- Tidy DESCRIPTION with usethis::use_tidy_description() (#119).
+
+## Continuous integration
+
+- Sync the workflows with cynkra/cynkratemplate (#118).
+
+
 # mockr 0.2.2.9025 (2026-11-27)
 
 ## Continuous integration
